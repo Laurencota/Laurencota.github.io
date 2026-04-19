@@ -436,6 +436,75 @@
       border: 1px solid var(--rose);
     }
 
+    .skill-list {
+      margin-top: 20px;
+    }
+
+    .skill-item {
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+
+    .skill-name {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .skill-bar {
+      height: 8px;
+      background: var(--sand);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--rose);
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── TOOLTIP ── */
+    .tooltip {
+      position: fixed;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(120,80,70,0.15);
+      max-width: 300px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .tooltip.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .tooltip-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--muted);
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
     /* ── PROJETOS ── */
     #projetos { background: var(--blush); }
 
@@ -752,7 +821,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-num">IA</div>
-        <div class="stat-desc">Pós-graduação FIAP em andamento</div>
+        <div class="stat-desc">Graduação FIAP em andamento</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">Dados</div>
@@ -771,63 +840,83 @@
       <div class="skill-category">
         <span class="skill-cat-icon">☁️</span>
         <p class="skill-cat-title">Cloud & AWS</p>
-        <div class="skill-tags">
-          <span class="skill-tag">S3</span>
-          <span class="skill-tag">Glue</span>
-          <span class="skill-tag">Athena</span>
-          <span class="skill-tag">Lambda</span>
-          <span class="skill-tag">Redshift</span>
-          <span class="skill-tag">EC2</span>
-          <span class="skill-tag">IAM</span>
-          <span class="skill-tag">RDS</span>
+        <div class="skill-list">
+          <div class="skill-item" data-tooltip="Trabalho com vários serviços da AWS no dia a dia. A nuvem virou meu ambiente natural.">
+            <span class="skill-name">AWS</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="75"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🗄️</span>
         <p class="skill-cat-title">Dados & Banco</p>
-        <div class="skill-tags">
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">Excel Avançado</span>
-          <span class="skill-tag">Data Warehouse</span>
-          <span class="skill-tag">ETL</span>
+        <div class="skill-list">
+          <div class="skill-item" data-tooltip="Adoro uma query bem escrita. Tem algo satisfatório em extrair exatamente o que você precisa de um banco enorme.">
+            <span class="skill-name">SQL</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="90"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-tooltip="Sim, Excel conta. E muito. Ainda é uma das ferramentas mais poderosas para análise rápida.">
+            <span class="skill-name">Excel</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="90"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🐍</span>
         <p class="skill-cat-title">Linguagens</p>
-        <div class="skill-tags">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Pandas</span>
-          <span class="skill-tag">NumPy</span>
-          <span class="skill-tag">Scikit-learn</span>
-          <span class="skill-tag">SQL</span>
+        <div class="skill-list">
+          <div class="skill-item" data-tooltip="Minha linguagem do dia a dia. De limpeza de dados a modelos de ML, o Python está em quase tudo que faço.">
+            <span class="skill-name">Python</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="90"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🤖</span>
         <p class="skill-cat-title">IA & Estatística</p>
-        <div class="skill-tags">
-          <span class="skill-tag">Machine Learning</span>
-          <span class="skill-tag">Estatística</span>
-          <span class="skill-tag">Regressão</span>
-          <span class="skill-tag">Classificação</span>
-          <span class="skill-tag">IA Generativa</span>
+        <div class="skill-list">
+          <div class="skill-item" data-tooltip="É minha base. Ver padrões em dados e saber o que é ruído e o que é sinal faz diferença em tudo.">
+            <span class="skill-name">Estatística</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="90"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-tooltip="Ainda aprendendo muito, mas já construí modelos que realmente funcionam. É a parte mais empolgante da IA.">
+            <span class="skill-name">Machine Learning</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="60"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-tooltip="Estou mergulhada nisso agora na FIAP. O campo está evoluindo rápido e eu junto com ele.">
+            <span class="skill-name">IA Generativa</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="40"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🏗️</span>
         <p class="skill-cat-title">Arquitetura</p>
-        <div class="skill-tags">
-          <span class="skill-tag">Data Lake</span>
-          <span class="skill-tag">Pipeline</span>
-          <span class="skill-tag">Engenharia de Dados</span>
-          <span class="skill-tag">Arquitetura Cloud</span>
+        <div class="skill-list">
+          <div class="skill-item" data-tooltip="Pipelines, ingestão, transformação. Gosto de garantir que os dados chegam certos antes de qualquer análise.">
+            <span class="skill-name">Engenharia de Dados</span>
+            <div class="skill-bar">
+              <div class="bar-fill" data-level="75"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -939,6 +1028,75 @@
     <span>© 2025 Lauren Cota</span>
     <span>Feito com ♥ e dados</span>
   </footer>
+
+  <script>
+    // Intersection Observer for skill bars
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          const fill = entry.target.querySelector('.bar-fill');
+          const level = fill.dataset.level;
+          fill.style.width = level + '%';
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.skill-item').forEach(item => {
+      observer.observe(item);
+    });
+
+    // Tooltip functionality
+    let currentTooltip = null;
+
+    document.querySelectorAll('.skill-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const tooltipText = item.dataset.tooltip;
+        showTooltip(tooltipText, e.target);
+      });
+    });
+
+    function showTooltip(text, target) {
+      if (currentTooltip) {
+        currentTooltip.remove();
+      }
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      tooltip.innerHTML = `
+        <button class="tooltip-close">&times;</button>
+        <p>${text}</p>
+      `;
+
+      document.body.appendChild(tooltip);
+
+      const rect = target.getBoundingClientRect();
+      tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
+      tooltip.style.top = `${rect.top - tooltip.offsetHeight - 10}px`;
+
+      tooltip.classList.add('show');
+      currentTooltip = tooltip;
+
+      tooltip.querySelector('.tooltip-close').addEventListener('click', () => {
+        hideTooltip();
+      });
+
+      document.addEventListener('click', hideTooltip);
+    }
+
+    function hideTooltip() {
+      if (currentTooltip) {
+        currentTooltip.classList.remove('show');
+        setTimeout(() => {
+          if (currentTooltip) {
+            currentTooltip.remove();
+            currentTooltip = null;
+          }
+        }, 300);
+      }
+    }
+  </script>
 
 </body>
 </html>
