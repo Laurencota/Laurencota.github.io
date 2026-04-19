@@ -32,7 +32,7 @@
       background: var(--cream);
       color: var(--ink);
       font-size: 16px;
-      line-height: 1.7;
+      line-height: 1.8;
       overflow-x: hidden;
     }
 
@@ -95,7 +95,7 @@
       grid-template-columns: 1fr 1fr;
       align-items: center;
       padding: 100px 60px 60px;
-      gap: 30px;
+      gap: 20px;
       position: relative;
       overflow: hidden;
     }
@@ -188,6 +188,7 @@
     .btn-primary:hover {
       background: var(--brown);
       transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(122,96,85,0.3);
     }
 
     .btn-secondary {
@@ -201,7 +202,11 @@
       transition: color var(--transition), border-color var(--transition);
     }
 
-    .btn-secondary:hover { color: var(--rose-dk); border-color: var(--rose-dk); }
+    .btn-secondary:hover { 
+      color: var(--rose-dk); 
+      border-color: var(--rose-dk);
+      transform: translateY(-1px);
+    }
 
     /* ── FOTO ── */
     .hero-photo {
@@ -479,7 +484,7 @@
 
     .project-img span { position: relative; z-index: 1; }
 
-    .project-body { padding: 28px; }
+    .project-body { padding: 32px; }
 
     .project-tags {
       display: flex;
@@ -494,7 +499,7 @@
       text-transform: uppercase;
       color: var(--rose-dk);
       background: var(--blush);
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
     }
 
@@ -538,7 +543,7 @@
     #contato h2 { color: var(--white); }
 
     .contato-desc {
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.7);
       font-size: 15px;
       max-width: 480px;
       margin: 0 auto 48px;
@@ -559,7 +564,7 @@
       padding: 14px 28px;
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 50px;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.9);
       text-decoration: none;
       font-size: 14px;
       font-weight: 400;
@@ -609,10 +614,23 @@
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .hero, #sobre { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
+      .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 40px; text-align: center; }
+      .hero-eyebrow { justify-content: center; }
+      #sobre { grid-template-columns: 1fr; gap: 60px; }
       section { padding: 72px 24px; }
       .photo-frame { width: 100%; max-width: 320px; height: 360px; margin: 0 auto; }
+      .projetos-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contato-links { flex-direction: column; align-items: center; gap: 16px; }
       footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 100px 20px 40px; gap: 32px; }
+      .photo-frame { max-width: 280px; height: 320px; }
+      section { padding: 60px 20px; }
+      .sobre-stats { grid-template-columns: 1fr; }
+      .projetos-grid { gap: 24px; }
+      .contato-links { gap: 12px; }
     }
   </style>
 </head>
