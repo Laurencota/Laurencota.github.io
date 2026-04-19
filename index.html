@@ -436,75 +436,6 @@
       border: 1px solid var(--rose);
     }
 
-    .skill-list {
-      margin-top: 20px;
-    }
-
-    .skill-item {
-      margin-bottom: 16px;
-      cursor: pointer;
-    }
-
-    .skill-name {
-      display: block;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-
-    .skill-bar {
-      height: 8px;
-      background: var(--sand);
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: var(--rose);
-      width: 0%;
-      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* ── TOOLTIP ── */
-    .tooltip {
-      position: fixed;
-      background: var(--white);
-      border: 1px solid var(--sand);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: 0 8px 32px rgba(120,80,70,0.15);
-      max-width: 300px;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--ink);
-    }
-
-    .tooltip.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .tooltip-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      color: var(--muted);
-      background: none;
-      border: none;
-      padding: 0;
-    }
-
     /* ── PROJETOS ── */
     #projetos { background: var(--blush); }
 
@@ -776,7 +707,7 @@
         inteligentes
       </h1>
       <p class="hero-description">
-        Oi! Me formei em Estatística pela UFMG e agora estou cursando IA na FIAP. Gosto mesmo é de mexer com dados, nuvem e pipelines. Uso AWS, Python e SQL no dia a dia.
+        Você sabia que dados são como quebra-cabeças? Me formei em Estatística na UFMG e agora mergulho em IA na FIAP. Vivo entre nuvens AWS, códigos Python e queries SQL.
       </p>
       <div class="hero-cta">
         <a href="#projetos" class="btn-primary">Ver projetos</a>
@@ -800,13 +731,13 @@
       <p class="section-label">Sobre mim</p>
       <h2>Quem eu sou</h2>
       <p>
-        Me formei em Estatística pela UFMG e estou no meio da graduação em IA na FIAP. Já trabalhei com dados de ponta a ponta, desde coletar até visualizar.
+        Sou formada em Estatística pela UFMG e estou no meio da graduação em IA na FIAP. Dados sempre foram meu playground, desde os primeiros gráficos até os modelos mais complexos.
       </p>
       <p>
-        Trabalho com AWS, bancos de dados relacionais e crio pipelines que funcionam bem. Junto estatística séria com ideias práticas.
+        No dia a dia, trabalho com AWS, bancos relacionais e crio pipelines que não desmoronam. Junto estatística sólida com ideias práticas, porque dados sem contexto são só números.
       </p>
       <p>
-        Gosto de resolver quebra-cabeças difíceis de forma simples. Pode ser um modelo que prevê coisas, um fluxo de dados eficiente ou uma análise que esclarece tudo.
+        O que me move é transformar caos em clareza. Às vezes, é uma query que salva o dia. Outras, um modelo que prevê o imprevisível. Gosto de desafios que fazem sentido.
       </p>
     </div>
 
@@ -840,83 +771,62 @@
       <div class="skill-category">
         <span class="skill-cat-icon">☁️</span>
         <p class="skill-cat-title">Cloud & AWS</p>
-        <div class="skill-list">
-          <div class="skill-item" data-tooltip="Trabalho com vários serviços da AWS no dia a dia. A nuvem virou meu ambiente natural.">
-            <span class="skill-name">AWS</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="75"></div>
-            </div>
-          </div>
+        <div class="skill-tags">
+          <span class="skill-tag">S3</span>
+          <span class="skill-tag">Glue</span>
+          <span class="skill-tag">Athena</span>
+          <span class="skill-tag">Lambda</span>
+          <span class="skill-tag">Redshift</span>
+          <span class="skill-tag">EC2</span>
+          <span class="skill-tag">IAM</span>
+          <span class="skill-tag">RDS</span>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🗄️</span>
         <p class="skill-cat-title">Dados & Banco</p>
-        <div class="skill-list">
-          <div class="skill-item" data-tooltip="Adoro uma query bem escrita. Tem algo satisfatório em extrair exatamente o que você precisa de um banco enorme.">
-            <span class="skill-name">SQL</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="90"></div>
-            </div>
-          </div>
-          <div class="skill-item" data-tooltip="Sim, Excel conta. E muito. Ainda é uma das ferramentas mais poderosas para análise rápida.">
-            <span class="skill-name">Excel</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="90"></div>
-            </div>
-          </div>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Excel Avançado</span>
+          <span class="skill-tag">Data Warehouse</span>
+          <span class="skill-tag">ETL</span>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🐍</span>
         <p class="skill-cat-title">Linguagens</p>
-        <div class="skill-list">
-          <div class="skill-item" data-tooltip="Minha linguagem do dia a dia. De limpeza de dados a modelos de ML, o Python está em quase tudo que faço.">
-            <span class="skill-name">Python</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="90"></div>
-            </div>
-          </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Scikit-learn</span>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🤖</span>
         <p class="skill-cat-title">IA & Estatística</p>
-        <div class="skill-list">
-          <div class="skill-item" data-tooltip="É minha base. Ver padrões em dados e saber o que é ruído e o que é sinal faz diferença em tudo.">
-            <span class="skill-name">Estatística</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="90"></div>
-            </div>
-          </div>
-          <div class="skill-item" data-tooltip="Ainda aprendendo muito, mas já construí modelos que realmente funcionam. É a parte mais empolgante da IA.">
-            <span class="skill-name">Machine Learning</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="60"></div>
-            </div>
-          </div>
-          <div class="skill-item" data-tooltip="Estou mergulhada nisso agora na FIAP. O campo está evoluindo rápido e eu junto com ele.">
-            <span class="skill-name">IA Generativa</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="40"></div>
-            </div>
-          </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Estatística</span>
+          <span class="skill-tag">Regressão</span>
+          <span class="skill-tag">Classificação</span>
+          <span class="skill-tag">IA Generativa</span>
         </div>
       </div>
 
       <div class="skill-category">
         <span class="skill-cat-icon">🏗️</span>
         <p class="skill-cat-title">Arquitetura</p>
-        <div class="skill-list">
-          <div class="skill-item" data-tooltip="Pipelines, ingestão, transformação. Gosto de garantir que os dados chegam certos antes de qualquer análise.">
-            <span class="skill-name">Engenharia de Dados</span>
-            <div class="skill-bar">
-              <div class="bar-fill" data-level="75"></div>
-            </div>
-          </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Lake</span>
+          <span class="skill-tag">Pipeline</span>
+          <span class="skill-tag">Engenharia de Dados</span>
+          <span class="skill-tag">Arquitetura Cloud</span>
         </div>
       </div>
 
@@ -934,7 +844,7 @@
         <div class="certificacao-body">
           <p class="certificacao-title">AWS Certified Cloud Practitioner</p>
           <p class="certificacao-desc">
-            Essa certificação me ajuda a entender melhor a nuvem da AWS e como usar no dia a dia.
+            Essa certificação da AWS me fez suar, mas agora navego pela nuvem como se fosse minha casa. Valeu cada hora de estudo, mesmo as que pareciam eternas.
           </p>
         </div>
       </div>
@@ -957,7 +867,7 @@
           </div>
           <p class="project-title">Pipeline de Dados na AWS</p>
           <p class="project-desc">
-            Montei um sistema na AWS que pega dados crus e os transforma rapidinho usando S3, Glue e Athena. Tudo pronto para analisar em questão de minutos.
+            Criei um pipeline na AWS que transforma dados bagunçados em ouro puro com S3, Glue e Athena. Em minutos, tudo analisável. É como mágica, mas com código.
           </p>
           <span class="project-link">Ver no GitHub →</span>
         </div>
@@ -972,7 +882,7 @@
           </div>
           <p class="project-title">Modelo Preditivo</p>
           <p class="project-desc">
-            Criei um modelo de ML para classificar coisas, fiz uma exploração dos dados bem detalhada e chequei todas as métricas para ver se estava bom.
+            Desenvolvi um modelo de ML que classifica dados como um detetive experiente. Explorei cada canto dos dados e validei tudo para garantir que funciona de verdade.
           </p>
           <span class="project-link">Ver no GitHub →</span>
         </div>
@@ -987,7 +897,7 @@
           </div>
           <p class="project-title">Dashboard Analítico</p>
           <p class="project-desc">
-            Analisei um monte de dados com SQL e fiz um dashboard interativo. Os insights ficam claros e ajudam a decidir melhor.
+            Mergulhei em dados com SQL e criei um dashboard que conta histórias visuais. Decisões ficam mais fáceis assim, sem precisar de bola de cristal.
           </p>
           <span class="project-link">Ver detalhes →</span>
         </div>
@@ -1001,7 +911,7 @@
     <p class="section-label">Contato</p>
     <h2>Vamos conversar?</h2>
     <p class="contato-desc">
-      Aberta a novas oportunidades, colaborações e projetos legais em dados e IA.
+      Vamos bater um papo sobre dados? Estou sempre aberta a projetos interessantes e colaborações que façam sentido.
     </p>
 
     <div class="contato-links">
@@ -1028,75 +938,6 @@
     <span>© 2025 Lauren Cota</span>
     <span>Feito com ♥ e dados</span>
   </footer>
-
-  <script>
-    // Intersection Observer for skill bars
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animated');
-          const fill = entry.target.querySelector('.bar-fill');
-          const level = fill.dataset.level;
-          fill.style.width = level + '%';
-        }
-      });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.skill-item').forEach(item => {
-      observer.observe(item);
-    });
-
-    // Tooltip functionality
-    let currentTooltip = null;
-
-    document.querySelectorAll('.skill-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const tooltipText = item.dataset.tooltip;
-        showTooltip(tooltipText, e.target);
-      });
-    });
-
-    function showTooltip(text, target) {
-      if (currentTooltip) {
-        currentTooltip.remove();
-      }
-
-      const tooltip = document.createElement('div');
-      tooltip.className = 'tooltip';
-      tooltip.innerHTML = `
-        <button class="tooltip-close">&times;</button>
-        <p>${text}</p>
-      `;
-
-      document.body.appendChild(tooltip);
-
-      const rect = target.getBoundingClientRect();
-      tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
-      tooltip.style.top = `${rect.top - tooltip.offsetHeight - 10}px`;
-
-      tooltip.classList.add('show');
-      currentTooltip = tooltip;
-
-      tooltip.querySelector('.tooltip-close').addEventListener('click', () => {
-        hideTooltip();
-      });
-
-      document.addEventListener('click', hideTooltip);
-    }
-
-    function hideTooltip() {
-      if (currentTooltip) {
-        currentTooltip.classList.remove('show');
-        setTimeout(() => {
-          if (currentTooltip) {
-            currentTooltip.remove();
-            currentTooltip = null;
-          }
-        }, 300);
-      }
-    }
-  </script>
 
 </body>
 </html>
