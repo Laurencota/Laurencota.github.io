@@ -246,50 +246,40 @@
 
     .photo-frame {
       position: relative;
-      width: 380px;
+      width: 100%;
+      max-width: 480px;
       height: 420px;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
     }
 
     .photo-frame::before {
       content: '';
       position: absolute;
-      inset: 16px -16px -16px 16px;
+      inset: 12px -12px -12px 12px;
       border: 1.5px solid var(--rose);
       border-radius: var(--radius);
       z-index: 0;
       pointer-events: none;
     }
 
-    .photo-placeholder {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      border-radius: var(--radius);
-      background: var(--beige);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--sand);
-    }
-
-    .photo-placeholder img {
-      width: 100%;
+    .photo-main {
+      flex: 0 0 65%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center top;
+      border-radius: var(--radius);
       display: block;
     }
 
-    /* Quando tiver foto real, adicione: <img src="foto.jpg" alt="..." style="width:100%;height:100%;object-fit:cover"> */
-    .photo-placeholder svg { opacity: 0.3; }
-
-    .photo-placeholder span {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .photo-secondary {
+      flex: 0 0 calc(35% - 10px);
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: var(--radius);
+      display: block;
     }
 
     .photo-badge {
@@ -737,7 +727,8 @@
       .hero-stats { justify-content: center; }
       #sobre { grid-template-columns: 1fr; gap: 60px; }
       section { padding: 72px 24px; }
-      .photo-frame { width: 100%; max-width: 320px; height: 340px; margin: 0 auto; }
+      .photo-frame { width: 100%; max-width: 400px; height: auto; flex-direction: column; margin: 0 auto; }
+      .photo-main, .photo-secondary { flex: none; width: 100%; height: 200px; }
       .photo-main { position: relative; width: 100%; height: 240px; }
       .photo-accent { position: relative; width: 88%; height: 180px; right: auto; bottom: auto; margin: -60px auto 0; transform: none; }
       .skeleton-cards { flex-direction: column; }
@@ -762,7 +753,8 @@
 
     @media (max-width: 480px) {
       .hero { padding: 100px 20px 40px; gap: 32px; }
-      .photo-frame { width: 100%; max-width: 320px; height: 340px; }
+      .photo-frame { width: 100%; max-width: 340px; height: auto; flex-direction: column; }
+      .photo-main, .photo-secondary { flex: none; width: 100%; height: 180px; }
       .photo-main { height: 220px; }
       .photo-accent { width: 86%; height: 160px; margin-top: -50px; }
       section { padding: 60px 20px; }
@@ -836,9 +828,8 @@
 
     <div class="hero-photo">
       <div class="photo-frame">
-        <div class="photo-placeholder">
-          <img src="assets/foto.jpg" alt="Lauren Cota" />
-        </div>
+        <img class="photo-main" src="assets/fotoportfolio.jfif" alt="Lauren Cota" />
+        <img class="photo-secondary" src="assets/foto.jpg" alt="Lauren Cota" />
       </div>
     </div>
   </section>
