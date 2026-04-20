@@ -1053,202 +1053,138 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
     (function () {
       const canvas = document.getElementById('bg-canvas');
       if (!canvas) return;
-
-      if (window.innerWidth < 768) {
-        canvas.style.display = 'none';
-        return;
-      }
+      if (window.innerWidth < 768) { canvas.style.display = 'none'; return; }
 
       const ctx = canvas.getContext('2d');
-      const PALETTE = ['#e8b4b8', '#ddd0c4', '#f0e8e0'];
-      const MAX_NODES = 16;
-      const CONNECT_DIST = 190;
-      const REPEL_DIST = 110;
-      const REPEL_STRENGTH = 0.35;
 
-      let W, H, frameCount = 0;
-      let mouse = { x: -9999, y: -9999 };
+      // Palette
+      const ROSE = '#e8b4b8', SAND = '#ddd0c4', BEIGE = '#f0e8e0';
 
-      function resize() {
+      // ── Character pools ──
+      const BIN   = ['0','1'];
+      const HEX   = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+      const SYMS  = ['μ','σ','β','α','ρ','Σ','√','∞','χ','Δ','λ','π','θ','φ'];
+      const SHORT = ['df','pd','np','R²','fit','std','var','avg','cov','sql','etl','ml','s3','iam','dag','ec2','rds','dbt'];
+      const WORDS = [
+        'SELECT','FROM','WHERE','JOIN','LIMIT','COUNT','AVG','SUM','HAVING','DISTINCT','GROUP',
+        'import','pandas','numpy','lambda','return','def','True','False','None',
+        'predict','sklearn','model','train','loss','epoch','batch','relu','softmax','tensor',
+        'mean','median','normal','bayes','cluster','weight','bias','dropout',
+        'Glue','Athena','Lambda','Redshift','pipeline','schema','index','S3',
+        'p-value','z-score','outlier','feature','target','sample','matrix',
+      ];
+
+      // Each column draws from one of three pools: binary/hex (narrow), symbols+short (mid), words (wide)
+      const POOLS = [
+        { chars: BIN,                 cell: 18, font: '12px monospace', maxOp: 0.16, trail: 18 },
+        { chars: HEX,                 cell: 18, font: '12px monospace', maxOp: 0.14, trail: 18 },
+        { chars: SYMS,                cell: 20, font: '13px monospace', maxOp: 0.18, trail: 14 },
+        { chars: SHORT,               cell: 32, font: '11px monospace', maxOp: 0.17, trail: 12 },
+        { chars: WORDS,               cell: 64, font: '11px monospace', maxOp: 0.15, trail:  8 },
+      ];
+
+      // Pool probability weights (bin, hex, syms, short, words)
+      const WEIGHTS = [0.28, 0.22, 0.18, 0.20, 0.12];
+
+      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+      function pickPool() {
+        let r = Math.random(), acc = 0;
+        for (let i = 0; i < WEIGHTS.length; i++) {
+          acc += WEIGHTS[i];
+          if (r < acc) return POOLS[i];
+        }
+        return POOLS[0];
+      }
+      function pickColor() {
+        const r = Math.random();
+        return r < 0.55 ? SAND : r < 0.82 ? ROSE : BEIGE;
+      }
+
+      let W, H, drops = [], frame = 0;
+
+      function makeDrop(x) {
+        const p = pickPool();
+        return {
+          x,
+          y: -Math.random() * H * 1.2,
+          speed: 0.5 + Math.random() * 1.8,
+          pool: p,
+          chars: Array.from({ length: p.trail }, () => pick(p.chars)),
+          color: pickColor(),
+          on: Math.random() > 0.3,
+          wakeAt: 0,
+        };
+      }
+
+      function init() {
         const hero = canvas.parentElement;
         W = canvas.width = hero.offsetWidth;
         H = canvas.height = hero.offsetHeight;
-      }
-
-      resize();
-
-      window.addEventListener('resize', function () {
-        if (window.innerWidth < 768) {
-          canvas.style.display = 'none';
-          return;
+        drops = [];
+        // build columns covering the full width, mixing pool cell sizes
+        let x = 4;
+        while (x < W) {
+          drops.push(makeDrop(x));
+          x += drops[drops.length - 1].pool.cell + Math.random() * 6;
         }
-        canvas.style.display = '';
-        resize();
-      });
-
-      const hero = document.querySelector('.hero');
-      hero.addEventListener('mousemove', function (e) {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      });
-      hero.addEventListener('mouseleave', function () {
-        mouse.x = -9999;
-        mouse.y = -9999;
-      });
-
-      function Node() {
-        this.init = function (born) {
-          this.x = Math.random() * W;
-          this.y = Math.random() * H;
-          this.vx = (Math.random() - 0.5) * 0.35;
-          this.vy = (Math.random() - 0.5) * 0.35;
-          this.r = 4 + Math.random() * 4;
-          this.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-          this.maxOpacity = 0.15 + Math.random() * 0.08;
-          this.opacity = born ? this.maxOpacity : 0;
-          this.maxLife = 320 + Math.floor(Math.random() * 380);
-          this.life = born ? Math.floor(Math.random() * this.maxLife) : 0;
-          this.fadeFrames = 55;
-        };
-
-        this.update = function () {
-          this.life++;
-          const fl = this.fadeFrames;
-          if (this.life < fl) {
-            this.opacity = (this.life / fl) * this.maxOpacity;
-          } else if (this.life > this.maxLife - fl) {
-            this.opacity = ((this.maxLife - this.life) / fl) * this.maxOpacity;
-          } else {
-            this.opacity = this.maxOpacity;
-          }
-
-          const dx = this.x - mouse.x;
-          const dy = this.y - mouse.y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < REPEL_DIST && d > 0) {
-            const f = ((REPEL_DIST - d) / REPEL_DIST) * REPEL_STRENGTH;
-            this.vx += (dx / d) * f;
-            this.vy += (dy / d) * f;
-          }
-
-          this.vx *= 0.97;
-          this.vy *= 0.97;
-          this.x += this.vx;
-          this.y += this.vy;
-
-          if (this.x < -20) this.vx += 0.12;
-          if (this.x > W + 20) this.vx -= 0.12;
-          if (this.y < -20) this.vy += 0.12;
-          if (this.y > H + 20) this.vy -= 0.12;
-
-          if (this.life >= this.maxLife) this.init(false);
-        };
-
-        this.draw = function () {
-          ctx.save();
-          ctx.globalAlpha = this.opacity;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
-          ctx.fill();
-          ctx.restore();
-        };
-
-        this.init(true);
       }
 
-      function Packet(x1, y1, x2, y2) {
-        this.x1 = x1; this.y1 = y1;
-        this.x2 = x2; this.y2 = y2;
-        this.t = 0;
-        this.speed = 0.004 + Math.random() * 0.004;
-        this.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+      function updateDrop(d) {
+        if (!d.on) { if (frame >= d.wakeAt) d.on = true; return; }
 
-        this.update = function () {
-          this.t += this.speed;
-          return this.t <= 1;
-        };
+        d.y += d.speed;
 
-        this.draw = function (baseAlpha) {
-          const x = this.x1 + (this.x2 - this.x1) * this.t;
-          const y = this.y1 + (this.y2 - this.y1) * this.t;
-          ctx.save();
-          ctx.globalAlpha = baseAlpha * 0.55;
-          ctx.beginPath();
-          ctx.arc(x, y, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
-          ctx.fill();
-          ctx.restore();
-        };
-      }
+        // randomly mutate a char in the trail
+        if (Math.random() < 0.03) {
+          d.chars[Math.floor(Math.random() * d.pool.trail)] = pick(d.pool.chars);
+        }
 
-      var nodes = [];
-      for (var i = 0; i < MAX_NODES; i++) nodes.push(new Node());
-
-      var packets = [];
-
-      function trySpawnPacket() {
-        if (packets.length >= 6) return;
-        var live = nodes.filter(function (n) { return n.opacity > 0.06; });
-        if (live.length < 2) return;
-        for (var attempt = 0; attempt < 6; attempt++) {
-          var a = live[Math.floor(Math.random() * live.length)];
-          var b = live[Math.floor(Math.random() * live.length)];
-          if (a === b) continue;
-          var dx = a.x - b.x, dy = a.y - b.y;
-          if (Math.sqrt(dx * dx + dy * dy) < CONNECT_DIST) {
-            packets.push(new Packet(a.x, a.y, b.x, b.y));
-            break;
+        // reset when head exits bottom
+        if (d.y > H + d.pool.trail * d.pool.cell) {
+          d.y = -20 - Math.random() * H * 0.6;
+          d.chars = Array.from({ length: d.pool.trail }, () => pick(d.pool.chars));
+          // occasionally pause between streaks
+          if (Math.random() < 0.22) {
+            d.on = false;
+            d.wakeAt = frame + 60 + Math.floor(Math.random() * 280);
           }
         }
       }
 
-      function animate() {
+      function drawDrop(d) {
+        const p = d.pool;
+        ctx.font = p.font;
+        ctx.fillStyle = d.color;
+        const CELL = p.cell;
+        const TRAIL = p.trail;
+        for (let i = 0; i < TRAIL; i++) {
+          const cy = d.y - i * CELL;
+          if (cy < -CELL || cy > H + CELL) continue;
+          // i=0 → head (brightest); i=TRAIL-1 → tail (nearly invisible)
+          const t = 1 - i / TRAIL;
+          ctx.globalAlpha = i === 0 ? Math.min(p.maxOp * 1.35, 0.28) : p.maxOp * t * t;
+          ctx.fillText(d.chars[i], d.x, cy);
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      function loop() {
         ctx.clearRect(0, 0, W, H);
-        frameCount++;
-
-        nodes.forEach(function (n) { n.update(); });
-
-        for (var i = 0; i < nodes.length; i++) {
-          for (var j = i + 1; j < nodes.length; j++) {
-            var a = nodes[i], b = nodes[j];
-            var dx = a.x - b.x, dy = a.y - b.y;
-            var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < CONNECT_DIST) {
-              var base = Math.min(a.opacity, b.opacity) * (1 - dist / CONNECT_DIST) * 0.55;
-              var pulse = 0.82 + 0.18 * Math.sin(frameCount * 0.018 + i * 1.3 + j * 0.7);
-              ctx.save();
-              ctx.globalAlpha = base * pulse;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.strokeStyle = PALETTE[(i + j) % PALETTE.length];
-              ctx.lineWidth = 0.5 + 0.5 * (1 - dist / CONNECT_DIST);
-              ctx.stroke();
-              ctx.restore();
-            }
-          }
+        frame++;
+        for (let i = 0; i < drops.length; i++) {
+          updateDrop(drops[i]);
+          if (drops[i].on) drawDrop(drops[i]);
         }
-
-        nodes.forEach(function (n) { n.draw(); });
-
-        if (frameCount % 80 === 0) trySpawnPacket();
-
-        var nextPackets = [];
-        for (var p = 0; p < packets.length; p++) {
-          var pk = packets[p];
-          if (pk.update()) {
-            pk.draw(0.22);
-            nextPackets.push(pk);
-          }
-        }
-        packets = nextPackets;
-
-        requestAnimationFrame(animate);
+        requestAnimationFrame(loop);
       }
 
-      animate();
+      init();
+      window.addEventListener('resize', function () {
+        if (window.innerWidth < 768) { canvas.style.display = 'none'; return; }
+        canvas.style.display = '';
+        init();
+      });
+      loop();
     })();
   </script>
 </body>
