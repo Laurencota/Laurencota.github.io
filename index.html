@@ -92,10 +92,10 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.2fr 0.8fr;
       align-items: center;
-      padding: 100px 60px 60px;
-      gap: 20px;
+      padding: 100px 60px 40px;
+      gap: 16px;
       position: relative;
       overflow: hidden;
     }
@@ -208,6 +208,30 @@
       transform: translateY(-1px);
     }
 
+    .hero-stack {
+      margin-top: 32px;
+    }
+
+    .hero-stack-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .hero-stack-items {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .hero-stack-items span {
+      margin: 0 6px;
+      opacity: 0.5;
+    }
+
     /* ── FOTO ── */
     .hero-photo {
       position: relative;
@@ -219,8 +243,8 @@
 
     .photo-frame {
       position: relative;
-      width: 360px;
-      height: 440px;
+      width: 320px;
+      height: 400px;
     }
 
     .photo-frame::before {
@@ -230,6 +254,7 @@
       border: 1.5px solid var(--rose);
       border-radius: var(--radius);
       z-index: 0;
+      pointer-events: none;
     }
 
     .photo-placeholder {
@@ -741,6 +766,10 @@
       .certificacoes-grid { gap: 20px; }
       .contato-links { gap: 12px; }
     }
+
+    @media (max-width: 600px) {
+      .photo-frame::before { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -783,6 +812,10 @@
       <div class="hero-cta">
         <a href="#projetos" class="btn-primary">Ver projetos</a>
         <a href="#contato" class="btn-secondary">Entrar em contato</a>
+      </div>
+      <div class="hero-stack">
+        <span class="hero-stack-label">stack principal</span>
+        <p class="hero-stack-items">Python<span>·</span>SQL<span>·</span>AWS<span>·</span>Estatística<span>·</span>IA</p>
       </div>
     </div>
 
