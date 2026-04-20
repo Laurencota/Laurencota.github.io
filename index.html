@@ -94,8 +94,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding: 120px 80px 80px;
-      gap: 40px;
+      padding: 120px 60px 60px;
+      gap: 60px;
       position: relative;
       overflow: hidden;
     }
@@ -246,8 +246,8 @@
 
     .photo-frame {
       position: relative;
-      width: 100%;
-      height: 500px;
+      width: 380px;
+      height: 420px;
     }
 
     .photo-frame::before {
@@ -278,7 +278,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center;
+      object-position: center center;
       display: block;
     }
 
@@ -737,7 +737,7 @@
       .hero-stats { justify-content: center; }
       #sobre { grid-template-columns: 1fr; gap: 60px; }
       section { padding: 72px 24px; }
-      .photo-frame { width: 100%; max-width: 420px; height: 380px; margin: 0 auto; }
+      .photo-frame { width: 100%; max-width: 320px; height: 340px; margin: 0 auto; }
       .photo-main { position: relative; width: 100%; height: 240px; }
       .photo-accent { position: relative; width: 88%; height: 180px; right: auto; bottom: auto; margin: -60px auto 0; transform: none; }
       .skeleton-cards { flex-direction: column; }
@@ -762,7 +762,7 @@
 
     @media (max-width: 480px) {
       .hero { padding: 100px 20px 40px; gap: 32px; }
-      .photo-frame { max-width: 340px; height: 380px; }
+      .photo-frame { width: 100%; max-width: 320px; height: 340px; }
       .photo-main { height: 220px; }
       .photo-accent { width: 86%; height: 160px; margin-top: -50px; }
       section { padding: 60px 20px; }
