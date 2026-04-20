@@ -294,6 +294,17 @@
     /* ── SECTION SHARED ── */
     section {
       padding: 100px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── DECORATIVE ELEMENTS ── */
+    .deco {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      line-height: 1;
     }
 
     .section-label {
@@ -448,95 +459,56 @@
     /* ── PROJETOS ── */
     #projetos { background: var(--blush); }
 
-    .projetos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+    .projetos-skeleton {
+      max-width: 900px;
       margin-top: 48px;
     }
 
-    .project-card {
-      background: var(--white);
-      border: 1px solid var(--sand);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition);
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 48px rgba(120,80,70,0.12);
-    }
-
-    .project-img {
-      height: 180px;
-      background: var(--beige);
+    .skeleton-cards {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      border-bottom: 1px solid var(--sand);
+      gap: 24px;
+      align-items: flex-end;
+    }
+
+    .skeleton-card {
+      flex: 1;
+      background: var(--beige);
+      border-radius: var(--radius);
       position: relative;
       overflow: hidden;
     }
 
-    .project-img::after {
+    .skeleton-card:nth-child(1) { height: 280px; }
+    .skeleton-card:nth-child(2) { height: 320px; }
+    .skeleton-card:nth-child(3) { height: 280px; }
+
+    .skeleton-card::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, var(--blush) 0%, var(--beige) 100%);
-      opacity: 0.5;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(221,208,196,0.55) 40%,
+        rgba(221,208,196,0.75) 50%,
+        rgba(221,208,196,0.55) 60%,
+        transparent 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
     }
 
-    .project-img span { position: relative; z-index: 1; }
-
-    .project-body { padding: 32px; }
-
-    .project-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
     }
 
-    .project-tag {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--rose-dk);
-      background: var(--blush);
-      padding: 4px 12px;
-      border-radius: 50px;
-    }
-
-    .project-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 10px;
-      line-height: 1.3;
-    }
-
-    .project-desc {
-      font-size: 14px;
+    .skeleton-msg {
+      margin-top: 28px;
+      font-size: 15px;
       color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--rose-dk);
+      text-align: center;
+      letter-spacing: 0.01em;
     }
 
     /* ── CERTIFICAÇÕES ── */
@@ -723,6 +695,11 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .deco      { opacity: 0.03 !important; }
+      .deco-lg   { display: none; }
+    }
+
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
@@ -733,7 +710,10 @@
       .photo-frame { width: 100%; max-width: 320px; height: auto; margin: 0 auto; }
       .photo-main { position: relative; width: 100%; height: 240px; }
       .photo-accent { position: relative; width: 88%; height: 180px; right: auto; bottom: auto; margin: -60px auto 0; transform: none; }
-      .projetos-grid { grid-template-columns: 1fr; gap: 32px; }
+      .skeleton-cards { flex-direction: column; }
+      .skeleton-card:nth-child(1),
+      .skeleton-card:nth-child(2),
+      .skeleton-card:nth-child(3) { height: 200px; }
       .certificacoes-grid { grid-template-columns: 1fr; gap: 24px; }
       .linkedin-grid { grid-template-columns: 1fr; gap: 24px; }
       .contato-links { flex-direction: column; align-items: center; gap: 16px; }
@@ -781,6 +761,13 @@
   <!-- HERO -->
   <section class="hero">
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:120px;color:var(--brown);top:5%;left:2%;opacity:0.04;">λ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:110px;color:var(--rose-dk);top:10%;left:83%;opacity:0.06;">σ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:95px;color:var(--sand);top:63%;left:6%;opacity:0.05;">μ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--rose-dk);top:74%;left:87%;opacity:0.07;">Σ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:70px;color:var(--sand);top:37%;left:92%;opacity:0.05;">π</span>
+    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--brown);top:88%;left:14%;opacity:0.07;">n→∞</span>
     <div class="hero-text">
       <p class="hero-eyebrow">Estatística · IA · Dados</p>
       <h1>
@@ -810,6 +797,12 @@
 
   <!-- SOBRE -->
   <section id="sobre">
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--sand);top:6%;left:2%;opacity:0.05;">β</span>
+    <span class="deco" style="font-family:monospace;font-size:14px;color:var(--sand);top:11%;left:76%;opacity:0.08;">df.groupby()</span>
+    <span class="deco" style="font-family:monospace;font-size:13px;color:var(--rose-dk);top:80%;left:4%;opacity:0.07;">import pandas as pd</span>
+    <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:52%;left:80%;opacity:0.07;">SELECT *</span>
+    <span class="deco" style="font-family:monospace;font-size:19px;color:var(--rose-dk);top:87%;left:86%;opacity:0.07;">0.95</span>
     <div class="sobre-text">
       <p class="section-label">Sobre mim</p>
       <h2>Quem eu sou</h2>
@@ -844,6 +837,13 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- SKILLS -->
   <section id="skills">
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:100px;color:var(--sand);top:35%;left:89%;opacity:0.05;">α</span>
+    <span class="deco" style="font-family:monospace;font-size:20px;color:var(--rose-dk);top:14%;left:2%;opacity:0.08;">.fit()</span>
+    <span class="deco" style="font-family:monospace;font-size:14px;color:var(--brown);top:8%;left:84%;opacity:0.07;">plt.show()</span>
+    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:85%;left:3%;opacity:0.07;">GROUP BY</span>
+    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:64%;left:1%;opacity:0.08;">predict()</span>
+    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--brown);top:90%;left:76%;opacity:0.07;">WHERE</span>
     <p class="section-label">Habilidades</p>
     <h2>Meu stack técnico</h2>
 
@@ -916,6 +916,12 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- CERTIFICAÇÕES -->
   <section id="certificacoes">
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--brown);top:8%;left:4%;opacity:0.05;">R²</span>
+    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--sand);top:14%;left:78%;opacity:0.08;">s3://</span>
+    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--rose-dk);top:72%;left:5%;opacity:0.07;">glue::</span>
+    <span class="deco" style="font-family:monospace;font-size:20px;color:var(--sand);top:82%;left:83%;opacity:0.08;">H₀</span>
+    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:55%;left:86%;opacity:0.07;">lambda</span>
     <p class="section-label">Certificações</p>
     <h2>Minhas conquistas</h2>
 
@@ -934,61 +940,33 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- PROJETOS -->
   <section id="projetos">
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--rose-dk);top:50%;left:3%;opacity:0.05;">χ²</span>
+    <span class="deco" style="font-family:monospace;font-size:20px;color:var(--sand);top:14%;left:4%;opacity:0.07;">1.96</span>
+    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:11%;left:80%;opacity:0.08;">athena</span>
+    <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:84%;left:75%;opacity:0.07;">p &lt; 0.05</span>
+    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--rose-dk);top:88%;left:18%;opacity:0.07;">JOIN</span>
     <p class="section-label">Projetos</p>
     <h2>O que já construí</h2>
 
-    <div class="projetos-grid">
-
-      <a href="#" class="project-card">
-        <div class="project-img"><span>📊</span></div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">AWS</span>
-            <span class="project-tag">Python</span>
-          </div>
-          <p class="project-title">Pipeline de Dados na AWS</p>
-          <p class="project-desc">
-            Criei um pipeline na AWS que transforma dados bagunçados em ouro puro com S3, Glue e Athena. Em minutos, tudo analisável. É como mágica, mas com código.
-          </p>
-          <span class="project-link">Ver no GitHub →</span>
-        </div>
-      </a>
-
-      <a href="#" class="project-card">
-        <div class="project-img"><span>🤖</span></div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">ML</span>
-            <span class="project-tag">Scikit-learn</span>
-          </div>
-          <p class="project-title">Modelo Preditivo</p>
-          <p class="project-desc">
-            Desenvolvi um modelo de ML que classifica dados como um detetive experiente. Explorei cada canto dos dados e validei tudo para garantir que funciona de verdade.
-          </p>
-          <span class="project-link">Ver no GitHub →</span>
-        </div>
-      </a>
-
-      <a href="#" class="project-card">
-        <div class="project-img"><span>📈</span></div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">SQL</span>
-            <span class="project-tag">Excel</span>
-          </div>
-          <p class="project-title">Dashboard Analítico</p>
-          <p class="project-desc">
-            Mergulhei em dados com SQL e criei um dashboard que conta histórias visuais. Decisões ficam mais fáceis assim, sem precisar de bola de cristal.
-          </p>
-          <span class="project-link">Ver detalhes →</span>
-        </div>
-      </a>
-
+    <div class="projetos-skeleton">
+      <div class="skeleton-cards">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+      <p class="skeleton-msg">Projetos chegando em breve.</p>
     </div>
   </section>
 
   <!-- NO LINKEDIN -->
   <section id="linkedin" style="background: var(--beige);">
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:95px;color:var(--sand);top:50%;left:87%;opacity:0.05;">ρ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--sand);top:5%;left:83%;opacity:0.05;">42</span>
+    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--brown);top:9%;left:2%;opacity:0.07;">y = ax + b</span>
+    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--rose-dk);top:82%;left:78%;opacity:0.07;">3.14</span>
+    <span class="deco" style="font-family:monospace;font-size:19px;color:var(--brown);top:87%;left:7%;opacity:0.08;">H₁</span>
     <p class="section-label">No LinkedIn</p>
     <h2>O que ando pensando</h2>
 
@@ -1018,6 +996,12 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- CONTATO -->
   <section id="contato">
+    <!-- deco -->
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:70px;color:var(--sand);top:10%;left:4%;opacity:0.08;">θ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:60px;color:var(--rose-dk);top:62%;left:87%;opacity:0.08;">μ</span>
+    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:55px;color:var(--brown);top:48%;left:3%;opacity:0.09;">σ</span>
+    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:82%;left:11%;opacity:0.09;">0.001</span>
+    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--rose-dk);top:14%;left:84%;opacity:0.08;">100%</span>
     <p class="section-label">Contato</p>
     <h2>Vamos conversar?</h2>
     <p class="contato-desc">
