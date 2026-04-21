@@ -90,10 +90,10 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      padding: 120px 80px 80px;
-      gap: 80px;
+      padding: 120px 64px 80px;
+      gap: 56px;
       position: relative;
       overflow: hidden;
       background-color: var(--cream);
@@ -147,23 +147,7 @@
       animation: spin 28s linear infinite;
     }
 
-    /* small floating badge */
-    .photo-wrap::after {
-      content: 'AWS Certified ☁️';
-      position: absolute;
-      bottom: 18px;
-      right: -28px;
-      background: var(--white);
-      border: 1px solid var(--sand);
-      border-radius: 40px;
-      padding: 8px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--brown);
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      box-shadow: 0 4px 20px rgba(120,80,70,0.08);
-    }
+
 
     @keyframes spin {
       from { transform: rotate(0deg); }
@@ -231,14 +215,13 @@
       margin-bottom: 32px;
     }
 
-    /* ── METRICS ── */
+    /* ── METRICS (coluna direita) ── */
     .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      width: 100%;
-      max-width: 440px;
-      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 200px;
+      flex-shrink: 0;
     }
 
     .hero-metric {
@@ -256,12 +239,12 @@
 
     .hero-metric-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 500;
       color: var(--rose-dk);
       line-height: 1.2;
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .hero-metric-label {
@@ -680,26 +663,23 @@
       .hero {
         grid-template-columns: 1fr;
         padding: 110px 28px 72px;
-        gap: 48px;
+        gap: 40px;
         text-align: center;
       }
 
       .hero-photo { order: -1; }
-
       .hero-text { align-items: center; }
-
       .hero-description { margin-left: auto; margin-right: auto; }
-
-      .photo-circle { width: 260px; height: 260px; }
-
-      .photo-wrap::after { right: -10px; bottom: 8px; font-size: 11px; padding: 6px 12px; }
+      .photo-circle { width: 240px; height: 240px; }
 
       .hero-metrics {
-        grid-template-columns: 1fr 1fr;
-        max-width: 360px;
-        margin-left: auto;
-        margin-right: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
       }
+
+      .hero-metric { width: calc(50% - 7px); }
 
       #sobre { grid-template-columns: 1fr; gap: 48px; }
       section { padding: 72px 24px; }
@@ -714,12 +694,9 @@
     }
 
     @media (max-width: 480px) {
-      .hero { padding: 100px 20px 60px; gap: 36px; }
-      .photo-circle { width: 210px; height: 210px; }
-      .photo-wrap::after { display: none; }
-      .hero-metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .hero-metric { padding: 14px 12px; }
-      .hero-metric-num { font-size: 26px; }
+      .hero { padding: 100px 20px 60px; gap: 32px; }
+      .photo-circle { width: 200px; height: 200px; }
+      .hero-metric { width: 100%; }
       section { padding: 60px 20px; }
       .sobre-stats { grid-template-columns: 1fr; }
     }
@@ -750,7 +727,7 @@
       </div>
     </div>
 
-    <!-- DIREITA: Texto -->
+    <!-- MEIO: Texto -->
     <div class="hero-text">
       <p class="hero-eyebrow">Estatística · IA · Dados</p>
 
@@ -763,31 +740,28 @@
       <p class="hero-description">
         Você sabia que dados são como um quebra-cabeça?
         Sou formada em Estatística pela Universidade Federal de Minas Gerais e atualmente aprofundo meus estudos em Inteligência Artificial na FIAP.
-        Transito entre soluções em nuvem na Amazon Web Services, desenvolvimento em Python e análise de dados com SQL, sempre em busca de transformar informações em insights estratégicos.
+        Transito entre soluções em nuvem na Amazon Web Services, desenvolvimento em Python e análise de dados, sempre em busca de transformar informações em insights estratégicos.
       </p>
-
-      <div class="hero-metrics">
-        <div class="hero-metric">
-          <span class="hero-metric-num">Estatística</span>
-          <span class="hero-metric-label">UFMG</span>
-        </div>
-        <div class="hero-metric">
-          <span class="hero-metric-num">Inteligência Artificial</span>
-          <span class="hero-metric-label">FIAP</span>
-        </div>
-        <div class="hero-metric">
-          <span class="hero-metric-num">Machine Learning</span>
-          <span class="hero-metric-label">em produção</span>
-        </div>
-        <div class="hero-metric">
-          <span class="hero-metric-num">Python · SQL</span>
-          <span class="hero-metric-label">Stack principal</span>
-        </div>
-      </div>
 
       <div class="hero-cta">
         <a href="#projetos" class="btn-primary">Ver projetos</a>
         <a href="#contato" class="btn-secondary">Entrar em contato</a>
+      </div>
+    </div>
+
+    <!-- DIREITA: Cards -->
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <span class="hero-metric-num">Estatística</span>
+        <span class="hero-metric-label">UFMG</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hero-metric-num">Inteligência Artificial</span>
+        <span class="hero-metric-label">FIAP</span>
+      </div>
+      <div class="hero-metric">
+        <span class="hero-metric-num">Python · SQL</span>
+        <span class="hero-metric-label">Stack principal</span>
       </div>
     </div>
 
