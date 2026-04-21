@@ -6,7 +6,7 @@
   <title>Lauren Cota</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --rose:    #e8b4b8;
@@ -24,7 +24,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -36,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE TEXTURE OVERLAY ── */
     body::before {
       content: '';
       position: fixed;
@@ -56,7 +54,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 60px;
-      background: rgba(253,248,245,0.85);
+      background: rgba(253,248,245,0.88);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--sand);
     }
@@ -91,56 +89,133 @@
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      justify-content: center;
-      padding: 120px 60px 80px;
-      gap: 0;
+      padding: 120px 80px 80px;
+      gap: 80px;
       position: relative;
       overflow: hidden;
       background-color: var(--cream);
-      background-image: radial-gradient(circle, rgba(221,208,196,0.45) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(221,208,196,0.5) 1px, transparent 1px);
       background-size: 28px 28px;
     }
 
+    /* soft blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, var(--blush) 0%, transparent 68%);
+      top: -80px; right: -80px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, var(--beige) 0%, transparent 70%);
+      bottom: 40px; left: 30%;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ── LEFT: PHOTO ── */
+    .hero-photo {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .photo-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* decorative ring behind the photo */
+    .photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      border: 1.5px dashed var(--rose);
+      opacity: 0.6;
+      animation: spin 28s linear infinite;
+    }
+
+    /* small floating badge */
+    .photo-wrap::after {
+      content: 'AWS Certified ☁️';
+      position: absolute;
+      bottom: 18px;
+      right: -28px;
+      background: var(--white);
+      border: 1px solid var(--sand);
+      border-radius: 40px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--brown);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(120,80,70,0.08);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .photo-circle {
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 5px solid var(--rose);
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── RIGHT: TEXT ── */
     .hero-text {
       position: relative;
       z-index: 1;
-      text-align: center;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      max-width: 700px;
-      width: 100%;
+      align-items: flex-start;
+      gap: 0;
     }
 
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
+      gap: 8px;
       background: var(--blush);
       border: 1px solid var(--rose);
       border-radius: 50px;
       padding: 6px 18px;
-      font-size: 12px;
-      letter-spacing: 0.14em;
+      font-size: 11px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--rose-dk);
       font-weight: 500;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
-
-    .hero-eyebrow::before { display: none; }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(42px, 5vw, 68px);
+      font-size: clamp(40px, 4.5vw, 64px);
       font-weight: 400;
-      line-height: 1.08;
+      line-height: 1.07;
       color: var(--ink);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       letter-spacing: -0.01em;
-      text-align: center;
     }
 
     h1 em {
@@ -149,38 +224,78 @@
     }
 
     .hero-description {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--muted);
-      max-width: 560px;
-      line-height: 1.8;
-      margin: 0 auto;
-      text-align: center;
+      max-width: 440px;
+      line-height: 1.85;
+      margin-bottom: 32px;
     }
 
+    /* ── METRICS ── */
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 36px;
+    }
+
+    .hero-metric {
+      background: var(--white);
+      border: 1px solid var(--sand);
+      border-radius: 16px;
+      padding: 18px 20px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .hero-metric:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(120,80,70,0.08);
+    }
+
+    .hero-metric-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--rose-dk);
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .hero-metric-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── CTA ── */
     .hero-cta {
       display: flex;
       gap: 16px;
       align-items: center;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
     .btn-primary {
       background: var(--ink);
       color: var(--white);
-      padding: 14px 28px;
+      padding: 14px 30px;
       border-radius: 50px;
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.05em;
       text-decoration: none;
-      transition: background var(--transition), transform var(--transition);
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
     }
 
     .btn-primary:hover {
       background: var(--brown);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(122,96,85,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(122,96,85,0.28);
     }
 
     .btn-secondary {
@@ -194,67 +309,27 @@
       transition: color var(--transition), border-color var(--transition);
     }
 
-    .btn-secondary:hover { 
-      color: var(--rose-dk); 
-      border-color: var(--rose-dk);
-      transform: translateY(-1px);
-    }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin: 36px 0;
-      width: 100%;
-      max-width: 700px;
-    }
-
-    .hero-metric {
-      background: var(--white);
-      border: 1px solid var(--sand);
-      border-radius: 16px;
-      padding: 20px 16px;
-      text-align: center;
-    }
-
-    .hero-metric-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
-      font-weight: 500;
+    .btn-secondary:hover {
       color: var(--rose-dk);
-      line-height: 1;
-      display: block;
-      margin-bottom: 6px;
+      border-color: var(--rose-dk);
     }
 
-    .hero-metric-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      line-height: 1.4;
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── FOTO ── */
     .hero-photo {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.1s forwards;
     }
 
-    .photo-circle {
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
-      border: 4px solid var(--rose);
-      outline: 8px solid var(--blush);
-      display: block;
-    }
+    .hero-eyebrow   { opacity: 0; animation: fadeUp 0.6s 0.25s forwards; }
+    h1              { opacity: 0; animation: fadeUp 0.6s 0.38s forwards; }
+    .hero-description { opacity: 0; animation: fadeUp 0.6s 0.50s forwards; }
+    .hero-metrics   { opacity: 0; animation: fadeUp 0.6s 0.62s forwards; }
+    .hero-cta       { opacity: 0; animation: fadeUp 0.6s 0.75s forwards; }
 
     /* ── SECTION SHARED ── */
     section {
@@ -263,7 +338,6 @@
       overflow: hidden;
     }
 
-    /* ── DECORATIVE ELEMENTS ── */
     .deco {
       position: absolute;
       pointer-events: none;
@@ -310,9 +384,7 @@
       align-items: center;
     }
 
-    .sobre-text {
-      max-width: 500px;
-    }
+    .sobre-text { max-width: 500px; }
 
     .sobre-text p {
       color: var(--muted);
@@ -351,11 +423,7 @@
       margin-bottom: 6px;
     }
 
-    .stat-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .stat-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
     /* ── SKILLS ── */
     #skills { background: var(--cream); }
@@ -399,17 +467,9 @@
       margin-bottom: 20px;
     }
 
-    .skill-cat-icon {
-      font-size: 28px;
-      margin-bottom: 14px;
-      display: block;
-    }
+    .skill-cat-icon { font-size: 28px; margin-bottom: 14px; display: block; }
 
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .skill-tag {
       background: var(--blush);
@@ -424,16 +484,9 @@
     /* ── PROJETOS ── */
     #projetos { background: var(--blush); }
 
-    .projetos-skeleton {
-      max-width: 900px;
-      margin-top: 48px;
-    }
+    .projetos-skeleton { max-width: 900px; margin-top: 48px; }
 
-    .skeleton-cards {
-      display: flex;
-      gap: 24px;
-      align-items: flex-end;
-    }
+    .skeleton-cards { display: flex; gap: 24px; align-items: flex-end; }
 
     .skeleton-card {
       flex: 1;
@@ -451,14 +504,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(221,208,196,0.55) 40%,
-        rgba(221,208,196,0.75) 50%,
-        rgba(221,208,196,0.55) 60%,
-        transparent 100%
-      );
+      background: linear-gradient(90deg, transparent 0%, rgba(221,208,196,0.55) 40%, rgba(221,208,196,0.75) 50%, rgba(221,208,196,0.55) 60%, transparent 100%);
       background-size: 200% 100%;
       animation: shimmer 1.5s ease-in-out infinite;
     }
@@ -473,7 +519,6 @@
       font-size: 15px;
       color: var(--muted);
       text-align: center;
-      letter-spacing: 0.01em;
     }
 
     /* ── CERTIFICAÇÕES ── */
@@ -500,14 +545,7 @@
       box-shadow: 0 8px 32px rgba(120,80,70,0.08);
     }
 
-    .certificacao-icon {
-      font-size: 48px;
-      flex-shrink: 0;
-    }
-
-    .certificacao-body {
-      flex: 1;
-    }
+    .certificacao-icon { font-size: 48px; flex-shrink: 0; }
 
     .certificacao-title {
       font-family: 'Cormorant Garamond', serif;
@@ -517,11 +555,7 @@
       margin-bottom: 8px;
     }
 
-    .certificacao-desc {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    .certificacao-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
 
     /* ── LINKEDIN ── */
     .linkedin-grid {
@@ -547,17 +581,14 @@
       box-shadow: 0 16px 48px rgba(120,80,70,0.12);
     }
 
-    .linkedin-emoji {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
+    .linkedin-emoji { font-size: 40px; margin-bottom: 16px; display: block; }
 
     .linkedin-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 500;
       color: var(--ink);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 1.3;
     }
 
@@ -566,6 +597,10 @@
       color: var(--muted);
       line-height: 1.7;
       margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .linkedin-link {
@@ -588,11 +623,10 @@
 
     #contato .section-label { color: var(--rose); justify-content: center; }
     #contato .section-label::after { background: var(--rose-dk); }
-
     #contato h2 { color: var(--white); }
 
     .contato-desc {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.65);
       font-size: 15px;
       max-width: 480px;
       margin: 0 auto 48px;
@@ -601,7 +635,7 @@
 
     .contato-links {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -610,10 +644,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 28px;
+      padding: 13px 26px;
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 50px;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.85);
       text-decoration: none;
       font-size: 14px;
       font-weight: 400;
@@ -621,7 +655,7 @@
     }
 
     .contato-link:hover {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.07);
       border-color: var(--rose);
       color: var(--white);
     }
@@ -638,62 +672,56 @@
       font-size: 12px;
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-text > * {
-      opacity: 0;
-      animation: fadeUp 0.7s forwards;
-    }
-
-    .hero-eyebrow { animation-delay: 0.1s; }
-    h1            { animation-delay: 0.2s; }
-    .hero-description { animation-delay: 0.35s; }
-    .hero-metrics { animation-delay: 0.5s; }
-    .hero-cta     { animation-delay: 0.65s; }
-
-    .hero-photo {
-      opacity: 0;
-      animation: fadeUp 0.7s 0s forwards;
-    }
-
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .deco      { opacity: 0.03 !important; }
-      .deco-lg   { display: none; }
-    }
-
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 24px 60px; }
-      .hero-metrics { grid-template-columns: 1fr 1fr; }
-      .photo-circle { width: 240px; height: 240px; }
-      #sobre { grid-template-columns: 1fr; gap: 60px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 110px 28px 72px;
+        gap: 48px;
+        text-align: center;
+      }
+
+      .hero-photo { order: -1; }
+
+      .hero-text { align-items: center; }
+
+      .hero-description { margin-left: auto; margin-right: auto; }
+
+      .photo-circle { width: 260px; height: 260px; }
+
+      .photo-wrap::after { right: -10px; bottom: 8px; font-size: 11px; padding: 6px 12px; }
+
+      .hero-metrics {
+        grid-template-columns: 1fr 1fr;
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #sobre { grid-template-columns: 1fr; gap: 48px; }
       section { padding: 72px 24px; }
       .skeleton-cards { flex-direction: column; }
       .skeleton-card:nth-child(1),
       .skeleton-card:nth-child(2),
       .skeleton-card:nth-child(3) { height: 200px; }
-      .certificacoes-grid { grid-template-columns: 1fr; gap: 24px; }
-      .linkedin-grid { grid-template-columns: 1fr; gap: 24px; }
-      .contato-links { flex-direction: column; align-items: center; gap: 16px; }
+      .certificacoes-grid { grid-template-columns: 1fr; }
+      .linkedin-grid { grid-template-columns: 1fr; }
+      .contato-links { flex-direction: column; align-items: center; }
       footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
     }
 
     @media (max-width: 480px) {
-      .hero { padding: 100px 20px 40px; }
-      .photo-circle { width: 200px; height: 200px; }
-      .hero-metrics { gap: 10px; }
-      .hero-metric { padding: 16px 10px; }
+      .hero { padding: 100px 20px 60px; gap: 36px; }
+      .photo-circle { width: 210px; height: 210px; }
+      .photo-wrap::after { display: none; }
+      .hero-metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .hero-metric { padding: 14px 12px; }
       .hero-metric-num { font-size: 26px; }
       section { padding: 60px 20px; }
       .sobre-stats { grid-template-columns: 1fr; }
-      .certificacoes-grid { gap: 20px; }
-      .contato-links { gap: 12px; }
     }
   </style>
 </head>
@@ -714,64 +742,74 @@
 
   <!-- HERO -->
   <section class="hero">
+
+    <!-- ESQUERDA: Foto -->
     <div class="hero-photo">
-      <img class="photo-circle" src="assets/fotoIA.png" alt="Lauren Cota" />
+      <div class="photo-wrap">
+        <img class="photo-circle" src="assets/fotoIA.png" alt="Lauren Cota" />
+      </div>
     </div>
 
+    <!-- DIREITA: Texto -->
     <div class="hero-text">
       <p class="hero-eyebrow">Estatística · IA · Dados</p>
+
       <h1>
-        Transformando dados<br>
-        em <em>decisões</em><br>
+        Transformando<br>
+        dados em <em>decisões</em><br>
         inteligentes
       </h1>
+
       <p class="hero-description">
         Você sabia que dados são como um quebra-cabeça?
         Sou formada em Estatística pela Universidade Federal de Minas Gerais e atualmente aprofundo meus estudos em Inteligência Artificial na FIAP.
         Transito entre soluções em nuvem na Amazon Web Services, desenvolvimento em Python e análise de dados com SQL, sempre em busca de transformar informações em insights estratégicos.
       </p>
+
       <div class="hero-metrics">
         <div class="hero-metric">
-          <span class="hero-metric-num">-95%</span>
-          <span class="hero-metric-label">no tempo operacional</span>
+          <span class="hero-metric-num">Estatística</span>
+          <span class="hero-metric-label">UFMG</span>
         </div>
         <div class="hero-metric">
-          <span class="hero-metric-num">-80%</span>
-          <span class="hero-metric-label">no tempo de execução</span>
+          <span class="hero-metric-num">Inteligência Artificial</span>
+          <span class="hero-metric-label">FIAP</span>
         </div>
         <div class="hero-metric">
-          <span class="hero-metric-num">UFMG</span>
-          <span class="hero-metric-label">Estatística</span>
+          <span class="hero-metric-num">Machine Learning</span>
+          <span class="hero-metric-label">em produção</span>
         </div>
         <div class="hero-metric">
-          <span class="hero-metric-num">AWS</span>
-          <span class="hero-metric-label">Certified</span>
+          <span class="hero-metric-num">Python · SQL</span>
+          <span class="hero-metric-label">Stack principal</span>
         </div>
       </div>
+
       <div class="hero-cta">
         <a href="#projetos" class="btn-primary">Ver projetos</a>
         <a href="#contato" class="btn-secondary">Entrar em contato</a>
       </div>
     </div>
+
   </section>
 
   <!-- SOBRE -->
   <section id="sobre">
-    <!-- deco -->
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--sand);top:6%;left:2%;opacity:0.05;">β</span>
+    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--sand);top:6%;left:2%;opacity:0.05;">β</span>
     <span class="deco" style="font-family:monospace;font-size:14px;color:var(--sand);top:11%;left:76%;opacity:0.08;">df.groupby()</span>
     <span class="deco" style="font-family:monospace;font-size:13px;color:var(--rose-dk);top:80%;left:4%;opacity:0.07;">import pandas as pd</span>
     <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:52%;left:80%;opacity:0.07;">SELECT *</span>
-    <span class="deco" style="font-family:monospace;font-size:19px;color:var(--rose-dk);top:87%;left:86%;opacity:0.07;">0.95</span>
     <div class="sobre-text">
       <p class="section-label">Sobre mim</p>
       <h2>Quem eu sou</h2>
       <p>
-Dados sempre foram meu playground — dos primeiros gráficos aos modelos mais complexos.
-
-No dia a dia, trabalho com soluções na Amazon Web Services, bancos de dados relacionais e construção de pipelines robustos. Combino base estatística sólida com aplicação prática, porque dados sem contexto são apenas números.
-
-O que me move é transformar caos em clareza. Às vezes, é uma query que resolve um problema crítico. Outras, um modelo que antecipa cenários. Gosto de desafios que geram impacto real.
+        Dados sempre foram meu playground — dos primeiros gráficos aos modelos mais complexos.
+      </p>
+      <p>
+        No dia a dia, trabalho com soluções na Amazon Web Services, bancos de dados relacionais e construção de pipelines robustos. Combino base estatística sólida com aplicação prática, porque dados sem contexto são apenas números.
+      </p>
+      <p>
+        O que me move é transformar caos em clareza. Às vezes, é uma query que resolve um problema crítico. Outras, um modelo que antecipa cenários. Gosto de desafios que geram impacto real.
       </p>
     </div>
 
@@ -797,94 +835,67 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- SKILLS -->
   <section id="skills">
-    <!-- deco -->
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:100px;color:var(--sand);top:35%;left:89%;opacity:0.05;">α</span>
     <span class="deco" style="font-family:monospace;font-size:20px;color:var(--rose-dk);top:14%;left:2%;opacity:0.08;">.fit()</span>
     <span class="deco" style="font-family:monospace;font-size:14px;color:var(--brown);top:8%;left:84%;opacity:0.07;">plt.show()</span>
     <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:85%;left:3%;opacity:0.07;">GROUP BY</span>
     <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:64%;left:1%;opacity:0.08;">predict()</span>
-    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--brown);top:90%;left:76%;opacity:0.07;">WHERE</span>
     <p class="section-label">Habilidades</p>
     <h2>Meu stack técnico</h2>
 
     <div class="skills-grid">
-
       <div class="skill-category">
         <span class="skill-cat-icon">☁️</span>
         <p class="skill-cat-title">Cloud & AWS</p>
         <div class="skill-tags">
-          <span class="skill-tag">S3</span>
-          <span class="skill-tag">Glue</span>
-          <span class="skill-tag">Athena</span>
-          <span class="skill-tag">Lambda</span>
-          <span class="skill-tag">Redshift</span>
-          <span class="skill-tag">EC2</span>
-          <span class="skill-tag">IAM</span>
-          <span class="skill-tag">RDS</span>
+          <span class="skill-tag">S3</span><span class="skill-tag">Glue</span>
+          <span class="skill-tag">Athena</span><span class="skill-tag">Lambda</span>
+          <span class="skill-tag">Redshift</span><span class="skill-tag">EC2</span>
+          <span class="skill-tag">IAM</span><span class="skill-tag">RDS</span>
         </div>
       </div>
-
       <div class="skill-category">
         <span class="skill-cat-icon">🗄️</span>
         <p class="skill-cat-title">Dados & Banco</p>
         <div class="skill-tags">
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">Excel Avançado</span>
-          <span class="skill-tag">Data Warehouse</span>
-          <span class="skill-tag">ETL</span>
+          <span class="skill-tag">SQL</span><span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span><span class="skill-tag">Excel Avançado</span>
+          <span class="skill-tag">Data Warehouse</span><span class="skill-tag">ETL</span>
         </div>
       </div>
-
       <div class="skill-category">
         <span class="skill-cat-icon">🐍</span>
         <p class="skill-cat-title">Linguagens</p>
         <div class="skill-tags">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Pandas</span>
-          <span class="skill-tag">NumPy</span>
-          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">Python</span><span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span><span class="skill-tag">Scikit-learn</span>
         </div>
       </div>
-
       <div class="skill-category">
         <span class="skill-cat-icon">🤖</span>
         <p class="skill-cat-title">IA & Estatística</p>
         <div class="skill-tags">
-          <span class="skill-tag">Machine Learning</span>
-          <span class="skill-tag">Estatística</span>
-          <span class="skill-tag">Regressão</span>
-          <span class="skill-tag">Classificação</span>
+          <span class="skill-tag">Machine Learning</span><span class="skill-tag">Estatística</span>
+          <span class="skill-tag">Regressão</span><span class="skill-tag">Classificação</span>
           <span class="skill-tag">IA Generativa</span>
         </div>
       </div>
-
       <div class="skill-category">
         <span class="skill-cat-icon">🏗️</span>
         <p class="skill-cat-title">Arquitetura</p>
         <div class="skill-tags">
-          <span class="skill-tag">Data Lake</span>
-          <span class="skill-tag">Pipeline</span>
-          <span class="skill-tag">Engenharia de Dados</span>
-          <span class="skill-tag">Arquitetura Cloud</span>
+          <span class="skill-tag">Data Lake</span><span class="skill-tag">Pipeline</span>
+          <span class="skill-tag">Engenharia de Dados</span><span class="skill-tag">Arquitetura Cloud</span>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- CERTIFICAÇÕES -->
   <section id="certificacoes">
-    <!-- deco -->
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--brown);top:8%;left:4%;opacity:0.05;">R²</span>
+    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--brown);top:8%;left:4%;opacity:0.05;">R²</span>
     <span class="deco" style="font-family:monospace;font-size:18px;color:var(--sand);top:14%;left:78%;opacity:0.08;">s3://</span>
-    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--rose-dk);top:72%;left:5%;opacity:0.07;">glue::</span>
-    <span class="deco" style="font-family:monospace;font-size:20px;color:var(--sand);top:82%;left:83%;opacity:0.08;">H₀</span>
-    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:55%;left:86%;opacity:0.07;">lambda</span>
     <p class="section-label">Certificações</p>
     <h2>Minhas conquistas</h2>
-
     <div class="certificacoes-grid">
       <div class="certificacao-card">
         <div class="certificacao-icon">☁️</div>
@@ -900,15 +911,10 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- PROJETOS -->
   <section id="projetos">
-    <!-- deco -->
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--rose-dk);top:50%;left:3%;opacity:0.05;">χ²</span>
-    <span class="deco" style="font-family:monospace;font-size:20px;color:var(--sand);top:14%;left:4%;opacity:0.07;">1.96</span>
-    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:11%;left:80%;opacity:0.08;">athena</span>
+    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--rose-dk);top:50%;left:3%;opacity:0.05;">χ²</span>
     <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:84%;left:75%;opacity:0.07;">p &lt; 0.05</span>
-    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--rose-dk);top:88%;left:18%;opacity:0.07;">JOIN</span>
     <p class="section-label">Projetos</p>
     <h2>O que já construí</h2>
-
     <div class="projetos-skeleton">
       <div class="skeleton-cards">
         <div class="skeleton-card"></div>
@@ -919,34 +925,28 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
     </div>
   </section>
 
-  <!-- NO LINKEDIN -->
+  <!-- LINKEDIN -->
   <section id="linkedin" style="background: var(--beige);">
-    <!-- deco -->
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:95px;color:var(--sand);top:50%;left:87%;opacity:0.05;">ρ</span>
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--sand);top:5%;left:83%;opacity:0.05;">42</span>
     <span class="deco" style="font-family:monospace;font-size:16px;color:var(--brown);top:9%;left:2%;opacity:0.07;">y = ax + b</span>
-    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--rose-dk);top:82%;left:78%;opacity:0.07;">3.14</span>
     <span class="deco" style="font-family:monospace;font-size:19px;color:var(--brown);top:87%;left:7%;opacity:0.08;">H₁</span>
     <p class="section-label">No LinkedIn</p>
     <h2>O que ando pensando</h2>
 
     <div class="linkedin-grid">
       <a href="https://www.linkedin.com/posts/lauren-cota_voc%C3%AA-j%C3%A1-ouviu-falar-no-paradoxo-de-simpson-activity-7450272634514235392-IMxA" class="linkedin-card" target="_blank">
-        <div class="linkedin-emoji">📊</div>
+        <span class="linkedin-emoji">📊</span>
         <h3 class="linkedin-title">Paradoxo de Simpson</h3>
         <p class="linkedin-preview">É o tipo de coisa que faz um resultado "óbvio" virar do avesso.</p>
         <span class="linkedin-link">Ver post →</span>
       </a>
-
       <a href="https://www.linkedin.com/posts/lauren-cota_at%C3%A9-que-ponto-voc%C3%AA-confia-no-que-a-ia-te-activity-7448453478882033664-QA7E" class="linkedin-card" target="_blank">
-        <div class="linkedin-emoji">🤖</div>
+        <span class="linkedin-emoji">🤖</span>
         <h3 class="linkedin-title">Até que ponto você confia na IA?</h3>
-        <p class="linkedin-preview">A IA não vai substituir o rigor técnico, mas está deixando mais visível quem tem e quem não tem. O ganho de velocidade em tarefas mecânicas é indiscutível: hoje, dá para gerar scripts de limpeza, prototipar visualizações e documentar processos em uma fração do tempo.</p>
+        <p class="linkedin-preview">A IA não vai substituir o rigor técnico, mas está deixando mais visível quem tem e quem não tem. O ganho de velocidade em tarefas mecânicas é indiscutível.</p>
         <span class="linkedin-link">Ver post →</span>
       </a>
-
       <a href="https://www.linkedin.com/posts/lauren-cota_gostaria-de-compartilhar-que-iniciei-minha-activity-7439074878621761537-J64y" class="linkedin-card" target="_blank">
-        <div class="linkedin-emoji">🎓</div>
+        <span class="linkedin-emoji">🎓</span>
         <h3 class="linkedin-title">Início da graduação em IA</h3>
         <p class="linkedin-preview">Gostaria de compartilhar que iniciei minha graduação em Inteligência Artificial na FIAP.</p>
         <span class="linkedin-link">Ver post →</span>
@@ -956,18 +956,13 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
 
   <!-- CONTATO -->
   <section id="contato">
-    <!-- deco -->
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:70px;color:var(--sand);top:10%;left:4%;opacity:0.08;">θ</span>
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:60px;color:var(--rose-dk);top:62%;left:87%;opacity:0.08;">μ</span>
-    <span class="deco deco-lg" style="font-family:'Cormorant Garamond',serif;font-size:55px;color:var(--brown);top:48%;left:3%;opacity:0.09;">σ</span>
-    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:82%;left:11%;opacity:0.09;">0.001</span>
-    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--rose-dk);top:14%;left:84%;opacity:0.08;">100%</span>
+    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:70px;color:var(--sand);top:10%;left:4%;opacity:0.08;">θ</span>
+    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:60px;color:var(--rose-dk);top:62%;left:87%;opacity:0.08;">μ</span>
     <p class="section-label">Contato</p>
     <h2>Vamos conversar?</h2>
     <p class="contato-desc">
       Vamos bater um papo sobre dados? Estou sempre aberta a projetos interessantes e colaborações que façam sentido.
     </p>
-
     <div class="contato-links">
       <a href="mailto:laurenmcota@gmail.com" class="contato-link">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
@@ -993,143 +988,5 @@ O que me move é transformar caos em clareza. Às vezes, é uma query que resolv
     <span>Feito com ♥ e dados</span>
   </footer>
 
-  <script>
-    (function () {
-      /* canvas removed — script kept as no-op in case re-added */
-      const canvas = document.getElementById('bg-canvas');
-      if (!canvas) return;
-
-      const ctx = canvas.getContext('2d');
-
-      // Palette
-      const ROSE = '#e8b4b8', SAND = '#ddd0c4', BEIGE = '#f0e8e0';
-
-      // ── Character pools ──
-      const BIN   = ['0','1'];
-      const HEX   = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
-      const SYMS  = ['μ','σ','β','α','ρ','Σ','√','∞','χ','Δ','λ','π','θ','φ'];
-      const SHORT = ['df','pd','np','R²','fit','std','var','avg','cov','sql','etl','ml','s3','iam','dag','ec2','rds','dbt'];
-      const WORDS = [
-        'SELECT','FROM','WHERE','JOIN','LIMIT','COUNT','AVG','SUM','HAVING','DISTINCT','GROUP',
-        'import','pandas','numpy','lambda','return','def','True','False','None',
-        'predict','sklearn','model','train','loss','epoch','batch','relu','softmax','tensor',
-        'mean','median','normal','bayes','cluster','weight','bias','dropout',
-        'Glue','Athena','Lambda','Redshift','pipeline','schema','index','S3',
-        'p-value','z-score','outlier','feature','target','sample','matrix',
-      ];
-
-      // Each column draws from one of three pools: binary/hex (narrow), symbols+short (mid), words (wide)
-      const POOLS = [
-        { chars: BIN,                 cell: 18, font: '12px monospace', maxOp: 0.07, trail: 18 },
-        { chars: HEX,                 cell: 18, font: '12px monospace', maxOp: 0.06, trail: 18 },
-        { chars: SYMS,                cell: 20, font: '13px monospace', maxOp: 0.08, trail: 14 },
-        { chars: SHORT,               cell: 32, font: '11px monospace', maxOp: 0.07, trail: 12 },
-        { chars: WORDS,               cell: 64, font: '11px monospace', maxOp: 0.06, trail:  8 },
-      ];
-
-      // Pool probability weights (bin, hex, syms, short, words)
-      const WEIGHTS = [0.28, 0.22, 0.18, 0.20, 0.12];
-
-      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-      function pickPool() {
-        let r = Math.random(), acc = 0;
-        for (let i = 0; i < WEIGHTS.length; i++) {
-          acc += WEIGHTS[i];
-          if (r < acc) return POOLS[i];
-        }
-        return POOLS[0];
-      }
-      function pickColor() {
-        const r = Math.random();
-        return r < 0.55 ? SAND : r < 0.82 ? ROSE : BEIGE;
-      }
-
-      let W, H, drops = [], frame = 0;
-
-      function makeDrop(x) {
-        const p = pickPool();
-        return {
-          x,
-          y: -Math.random() * H * 1.2,
-          speed: 0.5 + Math.random() * 1.8,
-          pool: p,
-          chars: Array.from({ length: p.trail }, () => pick(p.chars)),
-          color: pickColor(),
-          on: Math.random() > 0.3,
-          wakeAt: 0,
-        };
-      }
-
-      function init() {
-        const hero = canvas.parentElement;
-        W = canvas.width = hero.offsetWidth;
-        H = canvas.height = hero.offsetHeight;
-        drops = [];
-        // build columns covering the full width, mixing pool cell sizes
-        let x = 4;
-        while (x < W) {
-          drops.push(makeDrop(x));
-          x += drops[drops.length - 1].pool.cell + Math.random() * 6;
-        }
-      }
-
-      function updateDrop(d) {
-        if (!d.on) { if (frame >= d.wakeAt) d.on = true; return; }
-
-        d.y += d.speed;
-
-        // randomly mutate a char in the trail
-        if (Math.random() < 0.03) {
-          d.chars[Math.floor(Math.random() * d.pool.trail)] = pick(d.pool.chars);
-        }
-
-        // reset when head exits bottom
-        if (d.y > H + d.pool.trail * d.pool.cell) {
-          d.y = -20 - Math.random() * H * 0.6;
-          d.chars = Array.from({ length: d.pool.trail }, () => pick(d.pool.chars));
-          // occasionally pause between streaks
-          if (Math.random() < 0.22) {
-            d.on = false;
-            d.wakeAt = frame + 60 + Math.floor(Math.random() * 280);
-          }
-        }
-      }
-
-      function drawDrop(d) {
-        const p = d.pool;
-        ctx.font = p.font;
-        ctx.fillStyle = d.color;
-        const CELL = p.cell;
-        const TRAIL = p.trail;
-        for (let i = 0; i < TRAIL; i++) {
-          const cy = d.y - i * CELL;
-          if (cy < -CELL || cy > H + CELL) continue;
-          // i=0 → head (brightest); i=TRAIL-1 → tail (nearly invisible)
-          const t = 1 - i / TRAIL;
-          ctx.globalAlpha = i === 0 ? Math.min(p.maxOp * 1.4, 0.12) : p.maxOp * t * t;
-          ctx.fillText(d.chars[i], d.x, cy);
-        }
-        ctx.globalAlpha = 1;
-      }
-
-      function loop() {
-        ctx.clearRect(0, 0, W, H);
-        frame++;
-        for (let i = 0; i < drops.length; i++) {
-          updateDrop(drops[i]);
-          if (drops[i].on) drawDrop(drops[i]);
-        }
-        requestAnimationFrame(loop);
-      }
-
-      init();
-      window.addEventListener('resize', function () {
-        if (window.innerWidth < 768) { canvas.style.display = 'none'; return; }
-        canvas.style.display = '';
-        init();
-      });
-      loop();
-    })();
-  </script>
 </body>
 </html>
