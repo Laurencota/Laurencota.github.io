@@ -90,10 +90,10 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding: 120px 64px 80px;
-      gap: 56px;
+      padding: 120px 80px 80px;
+      gap: 72px;
       position: relative;
       overflow: hidden;
       background-color: var(--cream);
@@ -101,7 +101,6 @@
       background-size: 28px 28px;
     }
 
-    /* soft blobs */
     .hero::before {
       content: '';
       position: absolute;
@@ -127,8 +126,10 @@
       position: relative;
       z-index: 1;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 20px;
     }
 
     .photo-wrap {
@@ -136,7 +137,6 @@
       display: inline-block;
     }
 
-    /* decorative ring behind the photo */
     .photo-wrap::before {
       content: '';
       position: absolute;
@@ -146,8 +146,6 @@
       opacity: 0.6;
       animation: spin 28s linear infinite;
     }
-
-
 
     @keyframes spin {
       from { transform: rotate(0deg); }
@@ -208,27 +206,27 @@
     }
 
     .hero-description {
-      font-size: 15px;
+      font-size: 17px;
       color: var(--muted);
       max-width: 440px;
       line-height: 1.85;
       margin-bottom: 32px;
     }
 
-    /* ── METRICS (coluna direita) ── */
+    /* ── METRICS ── */
     .hero-metrics {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      width: 200px;
-      flex-shrink: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin: 28px 0 32px;
     }
 
     .hero-metric {
       background: var(--white);
       border: 1px solid var(--sand);
       border-radius: 16px;
-      padding: 18px 20px;
+      padding: 16px 18px;
       transition: transform var(--transition), box-shadow var(--transition);
     }
 
@@ -239,20 +237,31 @@
 
     .hero-metric-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 500;
       color: var(--rose-dk);
-      line-height: 1.2;
+      line-height: 1.3;
       display: block;
       margin-bottom: 4px;
     }
 
     .hero-metric-label {
-      font-size: 11px;
+      font-size: 15px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
       line-height: 1.4;
+    }
+
+    .photo-caption { text-align: center; }
+
+    .photo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      margin-bottom: 2px;
     }
 
     /* ── CTA ── */
@@ -303,16 +312,12 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .hero-photo {
-      opacity: 0;
-      animation: fadeUp 0.8s 0.1s forwards;
-    }
-
-    .hero-eyebrow   { opacity: 0; animation: fadeUp 0.6s 0.25s forwards; }
-    h1              { opacity: 0; animation: fadeUp 0.6s 0.38s forwards; }
-    .hero-description { opacity: 0; animation: fadeUp 0.6s 0.50s forwards; }
-    .hero-metrics   { opacity: 0; animation: fadeUp 0.6s 0.62s forwards; }
-    .hero-cta       { opacity: 0; animation: fadeUp 0.6s 0.75s forwards; }
+    .hero-photo        { opacity: 0; animation: fadeUp 0.8s 0.1s forwards; }
+    .hero-eyebrow      { opacity: 0; animation: fadeUp 0.6s 0.25s forwards; }
+    h1                 { opacity: 0; animation: fadeUp 0.6s 0.38s forwards; }
+    .hero-description  { opacity: 0; animation: fadeUp 0.6s 0.50s forwards; }
+    .hero-metrics      { opacity: 0; animation: fadeUp 0.6s 0.62s forwards; }
+    .hero-cta          { opacity: 0; animation: fadeUp 0.6s 0.75s forwards; }
 
     /* ── SECTION SHARED ── */
     section {
@@ -378,38 +383,122 @@
 
     .sobre-text p strong { color: var(--brown); font-weight: 500; }
 
-    .sobre-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    .sobre-foto {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .stat-card {
-      background: var(--white);
-      border: 1px solid var(--sand);
+    .sobre-foto img {
+      width: 100%;
+      max-width: 460px;
       border-radius: var(--radius);
-      padding: 28px 24px;
-      transition: transform var(--transition), box-shadow var(--transition);
+      object-fit: cover;
+      border: 1px solid var(--sand);
+      box-shadow: 0 8px 40px rgba(120,80,70,0.10);
     }
 
-    .stat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(120,80,70,0.08);
+    /* ── EXPERIÊNCIA ── */
+    #experiencia { background: var(--cream); }
+
+    .exp-timeline {
+      margin-top: 48px;
+      position: relative;
+      padding-left: 32px;
     }
 
-    .stat-num {
+    .exp-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1.5px;
+      background: linear-gradient(180deg, var(--rose), var(--sand));
+    }
+
+    .exp-item {
+      position: relative;
+      margin-bottom: 48px;
+    }
+
+    .exp-item:last-child { margin-bottom: 0; }
+
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--rose-dk);
+      border: 2.5px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--rose);
+    }
+
+    .exp-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .exp-role {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
+      font-size: 26px;
       font-weight: 500;
-      color: var(--rose-dk);
-      line-height: 1;
-      margin-bottom: 6px;
+      color: var(--ink);
+      line-height: 1.2;
     }
 
-    .stat-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .exp-period {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose-dk);
+      font-weight: 500;
+      white-space: nowrap;
+      margin-top: 6px;
+    }
+
+    .exp-company {
+      font-size: 14px;
+      color: var(--brown);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+
+    .exp-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 16px;
+      max-width: 680px;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exp-tag {
+      background: var(--blush);
+      color: var(--brown);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 50px;
+      border: 1px solid var(--rose);
+      letter-spacing: 0.04em;
+    }
 
     /* ── SKILLS ── */
-    #skills { background: var(--cream); }
+    #skills { background: var(--blush); }
 
     .skills-grid {
       display: grid;
@@ -465,7 +554,7 @@
     }
 
     /* ── PROJETOS ── */
-    #projetos { background: var(--blush); }
+    #projetos { background: var(--beige); }
 
     .projetos-skeleton { max-width: 900px; margin-top: 48px; }
 
@@ -473,10 +562,11 @@
 
     .skeleton-card {
       flex: 1;
-      background: var(--beige);
+      background: var(--sand);
       border-radius: var(--radius);
       position: relative;
       overflow: hidden;
+      opacity: 0.5;
     }
 
     .skeleton-card:nth-child(1) { height: 280px; }
@@ -505,6 +595,8 @@
     }
 
     /* ── CERTIFICAÇÕES ── */
+    #certificacoes { background: var(--cream); }
+
     .certificacoes-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -673,16 +765,18 @@
       .photo-circle { width: 240px; height: 240px; }
 
       .hero-metrics {
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-        justify-content: center;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 20px auto;
       }
 
-      .hero-metric { width: calc(50% - 7px); }
+      .hero-metric { width: auto; }
 
       #sobre { grid-template-columns: 1fr; gap: 48px; }
+      .sobre-foto img { max-width: 100%; }
       section { padding: 72px 24px; }
+      .exp-timeline { padding-left: 24px; }
+      .exp-item::before { left: -30px; }
+      .exp-header { flex-direction: column; gap: 4px; }
       .skeleton-cards { flex-direction: column; }
       .skeleton-card:nth-child(1),
       .skeleton-card:nth-child(2),
@@ -698,7 +792,6 @@
       .photo-circle { width: 200px; height: 200px; }
       .hero-metric { width: 100%; }
       section { padding: 60px 20px; }
-      .sobre-stats { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -709,6 +802,7 @@
     <a class="nav-logo" href="#">Lauren Cota</a>
     <ul class="nav-links">
       <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#certificacoes">Certificações</a></li>
       <li><a href="#projetos">Projetos</a></li>
@@ -719,15 +813,15 @@
 
   <!-- HERO -->
   <section class="hero">
-
-    <!-- ESQUERDA: Foto -->
     <div class="hero-photo">
       <div class="photo-wrap">
         <img class="photo-circle" src="assets/fotoIA.png" alt="Lauren Cota" />
       </div>
+      <div class="photo-caption">
+        <p class="photo-name">eei! eu sou a Lau!</p>
+      </div>
     </div>
 
-    <!-- MEIO: Texto -->
     <div class="hero-text">
       <p class="hero-eyebrow">Estatística · IA · Dados</p>
 
@@ -738,33 +832,25 @@
       </h1>
 
       <p class="hero-description">
-        Você sabia que dados são como um quebra-cabeça?
-        Sou formada em Estatística pela Universidade Federal de Minas Gerais e atualmente aprofundo meus estudos em Inteligência Artificial na FIAP.
-        Transito entre soluções em nuvem na Amazon Web Services, desenvolvimento em Python e análise de dados, sempre em busca de transformar informações em insights estratégicos.
+        Sou formada em Estatística pela Universidade Federal de Minas Gerais e atualmente aprofundo meus estudos em Inteligência Artificial na FIAP. Atuo com soluções em nuvem na Amazon Web Services, desenvolvimento em Python e análise de dados, transformando informações em insights estratégicos.
       </p>
+
+      <div class="hero-metrics">
+        <div class="hero-metric">
+          <span class="hero-metric-num">Estatística</span>
+          <span class="hero-metric-label">UFMG</span>
+        </div>
+        <div class="hero-metric">
+          <span class="hero-metric-num">Inteligência Artificial</span>
+          <span class="hero-metric-label">FIAP</span>
+        </div>
+      </div>
 
       <div class="hero-cta">
         <a href="#projetos" class="btn-primary">Ver projetos</a>
         <a href="#contato" class="btn-secondary">Entrar em contato</a>
       </div>
     </div>
-
-    <!-- DIREITA: Cards -->
-    <div class="hero-metrics">
-      <div class="hero-metric">
-        <span class="hero-metric-num">Estatística</span>
-        <span class="hero-metric-label">UFMG</span>
-      </div>
-      <div class="hero-metric">
-        <span class="hero-metric-num">Inteligência Artificial</span>
-        <span class="hero-metric-label">FIAP</span>
-      </div>
-      <div class="hero-metric">
-        <span class="hero-metric-num">Python · SQL</span>
-        <span class="hero-metric-label">Stack principal</span>
-      </div>
-    </div>
-
   </section>
 
   <!-- SOBRE -->
@@ -773,37 +859,58 @@
     <span class="deco" style="font-family:monospace;font-size:14px;color:var(--sand);top:11%;left:76%;opacity:0.08;">df.groupby()</span>
     <span class="deco" style="font-family:monospace;font-size:13px;color:var(--rose-dk);top:80%;left:4%;opacity:0.07;">import pandas as pd</span>
     <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:52%;left:80%;opacity:0.07;">SELECT *</span>
+
     <div class="sobre-text">
       <p class="section-label">Sobre mim</p>
       <h2>Quem eu sou</h2>
       <p>
-        Dados sempre foram meu playground — dos primeiros gráficos aos modelos mais complexos.
+        Tudo começou pela <strong>matemática</strong> — essa linguagem que sempre me fez enxergar o mundo de outro jeito. Mas foi na tecnologia que me encontrei de verdade, e hoje não consigo imaginar um caminho diferente.
       </p>
       <p>
-        No dia a dia, trabalho com soluções na Amazon Web Services, bancos de dados relacionais e construção de pipelines robustos. Combino base estatística sólida com aplicação prática, porque dados sem contexto são apenas números.
+        Trabalho com dados porque acredito que por trás de cada número existe uma decisão, uma história, um impacto. Combino a base estatística que a UFMG me deu com aplicação prática em AWS, SQL e Python — porque teoria sem prática é só abstração.
       </p>
       <p>
-        O que me move é transformar caos em clareza. Às vezes, é uma query que resolve um problema crítico. Outras, um modelo que antecipa cenários. Gosto de desafios que geram impacto real.
+        Estou na graduação em IA na FIAP para <strong>colocar em prática tudo que já sei</strong> e ir ainda mais longe. E no meio disso tudo, carrego uma convicção: <strong>quero ver mais mulheres nesse espaço</strong>. A tecnologia é melhor quando é feita por todo mundo.
       </p>
     </div>
 
-    <div class="sobre-stats">
-      <div class="stat-card">
-        <div class="stat-num">AWS</div>
-        <div class="stat-desc">Múltiplos serviços em produção</div>
+    <div class="sobre-foto">
+      <img src="assets/fotoportfolio.jfif" alt="Lauren Cota" />
+    </div>
+  </section>
+
+  <!-- EXPERIÊNCIA -->
+  <section id="experiencia">
+    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--sand);top:6%;left:2%;opacity:0.05;">∑</span>
+    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:12%;left:78%;opacity:0.07;">model.deploy()</span>
+    <span class="deco" style="font-family:monospace;font-size:14px;color:var(--brown);top:80%;left:5%;opacity:0.07;">pipeline.run()</span>
+
+    <p class="section-label">Trajetória</p>
+    <h2>Experiência profissional</h2>
+
+    <div class="exp-timeline">
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <p class="exp-role">Estatística Sênior</p>
+          <span class="exp-period">atual</span>
+        </div>
+        <p class="exp-company">Brain Brand Strategy</p>
+        <p class="exp-desc">
+Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de ponta a ponta. No dia a dia, integro rigor estatístico a soluções em nuvem, desde a arquitetura de pipelines na AWS até o desenvolvimento de agentes de IA com Bedrock e SageMaker. Meu foco é transformar dados complexos em insights claros que apoiam decisões estratégicas.        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">AWS</span>
+          <span class="exp-tag">SageMaker</span>
+          <span class="exp-tag">Bedrock</span>
+          <span class="exp-tag">Agentes de IA</span>
+          <span class="exp-tag">SQL & RDS</span>
+          <span class="exp-tag">Pipelines</span>
+          <span class="exp-tag">Análise Estatística</span>
+          <span class="exp-tag">Coordenação de Projetos</span>
+          <span class="exp-tag">Excel Avançado</span>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num">SQL</div>
-        <div class="stat-desc">Bancos relacionais e queries avançadas</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">IA</div>
-        <div class="stat-desc">Graduação FIAP em andamento</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">Dados</div>
-        <div class="stat-desc">Engenharia & Arquitetura end-to-end</div>
-      </div>
+
     </div>
   </section>
 
@@ -817,50 +924,88 @@
     <h2>Meu stack técnico</h2>
 
     <div class="skills-grid">
+
       <div class="skill-category">
         <span class="skill-cat-icon">☁️</span>
         <p class="skill-cat-title">Cloud & AWS</p>
         <div class="skill-tags">
-          <span class="skill-tag">S3</span><span class="skill-tag">Glue</span>
-          <span class="skill-tag">Athena</span><span class="skill-tag">Lambda</span>
-          <span class="skill-tag">Redshift</span><span class="skill-tag">EC2</span>
-          <span class="skill-tag">IAM</span><span class="skill-tag">RDS</span>
+          <span class="skill-tag">S3</span>
+          <span class="skill-tag">Glue</span>
+          <span class="skill-tag">Athena</span>
+          <span class="skill-tag">Lambda</span>
+          <span class="skill-tag">Redshift</span>
+          <span class="skill-tag">EC2</span>
+          <span class="skill-tag">IAM</span>
+          <span class="skill-tag">RDS</span>
+          <span class="skill-tag">SageMaker</span>
+          <span class="skill-tag">Bedrock</span>
         </div>
       </div>
+
       <div class="skill-category">
         <span class="skill-cat-icon">🗄️</span>
         <p class="skill-cat-title">Dados & Banco</p>
         <div class="skill-tags">
-          <span class="skill-tag">SQL</span><span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MySQL</span><span class="skill-tag">Excel Avançado</span>
-          <span class="skill-tag">Data Warehouse</span><span class="skill-tag">ETL</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Excel Avançado</span>
+          <span class="skill-tag">Data Warehouse</span>
+          <span class="skill-tag">ETL</span>
+          <span class="skill-tag">Bancos Vetoriais</span>
         </div>
       </div>
+
       <div class="skill-category">
         <span class="skill-cat-icon">🐍</span>
         <p class="skill-cat-title">Linguagens</p>
         <div class="skill-tags">
-          <span class="skill-tag">Python</span><span class="skill-tag">Pandas</span>
-          <span class="skill-tag">NumPy</span><span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">PyTorch</span>
         </div>
       </div>
+
       <div class="skill-category">
         <span class="skill-cat-icon">🤖</span>
-        <p class="skill-cat-title">IA & Estatística</p>
+        <p class="skill-cat-title">IA & Machine Learning</p>
         <div class="skill-tags">
-          <span class="skill-tag">Machine Learning</span><span class="skill-tag">Estatística</span>
-          <span class="skill-tag">Regressão</span><span class="skill-tag">Classificação</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">NLP</span>
+          <span class="skill-tag">Regressão</span>
+          <span class="skill-tag">Classificação</span>
           <span class="skill-tag">IA Generativa</span>
+          <span class="skill-tag">LLMs</span>
+          <span class="skill-tag">RAG</span>
         </div>
       </div>
+
+      <div class="skill-category">
+        <span class="skill-cat-icon">🔗</span>
+        <p class="skill-cat-title">Frameworks & Orquestração</p>
+        <div class="skill-tags">
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">LangGraph</span>
+          <span class="skill-tag">Hugging Face</span>
+          <span class="skill-tag">Estatística</span>
+        </div>
+      </div>
+
       <div class="skill-category">
         <span class="skill-cat-icon">🏗️</span>
         <p class="skill-cat-title">Arquitetura</p>
         <div class="skill-tags">
-          <span class="skill-tag">Data Lake</span><span class="skill-tag">Pipeline</span>
-          <span class="skill-tag">Engenharia de Dados</span><span class="skill-tag">Arquitetura Cloud</span>
+          <span class="skill-tag">Data Lake</span>
+          <span class="skill-tag">Pipeline</span>
+          <span class="skill-tag">Engenharia de Dados</span>
+          <span class="skill-tag">Arquitetura Cloud</span>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -919,10 +1064,10 @@
         <p class="linkedin-preview">A IA não vai substituir o rigor técnico, mas está deixando mais visível quem tem e quem não tem. O ganho de velocidade em tarefas mecânicas é indiscutível.</p>
         <span class="linkedin-link">Ver post →</span>
       </a>
-      <a href="https://www.linkedin.com/posts/lauren-cota_gostaria-de-compartilhar-que-iniciei-minha-activity-7439074878621761537-J64y" class="linkedin-card" target="_blank">
+      <a href="https://www.linkedin.com/posts/lauren-cota_o-que-a-faculdade-de-ia-tem-refor%C3%A7ado-para-share-7453066356670832640-TixJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBB-iIBVkjCWAzlExvHn6em6Qd6j1RlQw8" class="linkedin-card" target="_blank">
         <span class="linkedin-emoji">🎓</span>
-        <h3 class="linkedin-title">Início da graduação em IA</h3>
-        <p class="linkedin-preview">Gostaria de compartilhar que iniciei minha graduação em Inteligência Artificial na FIAP.</p>
+        <h3 class="linkedin-title">O que a faculdade de IA tem reforçado para mim (e não tem nada a ver com código)</h3>
+        <p class="linkedin-preview">Entrei achando que ia aprender mais um monte de algoritmo novo. E sim, tem isso. Mas a principal lição até agora tem sido outra: segurar a mão antes de sair codando.</p>
         <span class="linkedin-link">Ver post →</span>
       </a>
     </div>
@@ -958,7 +1103,7 @@
   </section>
 
   <footer>
-    <span>© 2025 Lauren Cota</span>
+    <span>© 2026 Lauren Cota</span>
     <span>Feito com ♥ e dados</span>
   </footer>
 
