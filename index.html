@@ -4,23 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lauren Cota</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --rose:    #e8b4b8;
-      --rose-dk: #c9848a;
-      --blush:   #f5e6e8;
-      --cream:   #fdf8f5;
-      --beige:   #f0e8e0;
-      --sand:    #ddd0c4;
-      --brown:   #7a6055;
-      --ink:     #2e2420;
-      --muted:   #9e8e85;
-      --white:   #ffffff;
-      --radius:  14px;
-      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+      --rose:      #e8b4b8;
+      --rose-dk:   #c07a80;
+      --rose-deep: #a05860;
+      --blush:     #f7eaec;
+      --cream:     #fdf8f5;
+      --beige:     #f2ece4;
+      --sand:      #ddd0c4;
+      --sand-lt:   #ece5dc;
+      --brown:     #7a6055;
+      --brown-lt:  #a08878;
+      --ink:       #2a1f1c;
+      --ink-lt:    #4a3830;
+      --muted:     #9e8e85;
+      --muted-lt:  #b8a89e;
+      --white:     #ffffff;
+      --radius-sm: 10px;
+      --radius:    16px;
+      --radius-lg: 24px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,60 +37,116 @@
       background: var(--cream);
       color: var(--ink);
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.75;
       overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
     }
 
     /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 60px;
-      background: rgba(253,248,245,0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--sand);
+      padding: 18px 64px;
+      background: rgba(253,248,245,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(221,208,196,0.5);
+      transition: padding var(--transition);
     }
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 500;
       color: var(--ink);
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
       text-decoration: none;
     }
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 32px;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 400;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
       transition: color var(--transition);
     }
 
-    .nav-links a:hover { color: var(--rose-dk); }
+    .nav-links a:hover { color: var(--rose-deep); }
+
+    .nav-cta {
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      color: var(--ink) !important;
+      border: 1px solid var(--sand) !important;
+      padding: 8px 18px;
+      border-radius: 50px;
+      transition: all var(--transition) !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--ink) !important;
+      color: var(--white) !important;
+      border-color: var(--ink) !important;
+    }
+
+    /* hamburger mobile */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 61px;
+      left: 0; right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--sand);
+      padding: 24px 32px;
+      z-index: 199;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--sand-lt);
+      transition: color var(--transition);
+    }
+
+    .mobile-menu a:hover { color: var(--rose-deep); }
 
     /* ── HERO ── */
     .hero {
@@ -93,68 +155,47 @@
       grid-template-columns: 1fr 1fr;
       align-items: center;
       padding: 120px 80px 80px;
-      gap: 72px;
+      gap: 80px;
       position: relative;
       overflow: hidden;
       background-color: var(--cream);
-      background-image: radial-gradient(circle, rgba(221,208,196,0.5) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background-image:
+        radial-gradient(circle at 70% 20%, rgba(232,180,184,0.18) 0%, transparent 50%),
+        radial-gradient(circle, rgba(221,208,196,0.4) 1px, transparent 1px);
+      background-size: 100% 100%, 30px 30px;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 480px; height: 480px;
-      background: radial-gradient(circle, var(--blush) 0%, transparent 68%);
-      top: -80px; right: -80px;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 280px; height: 280px;
-      background: radial-gradient(circle, var(--beige) 0%, transparent 70%);
-      bottom: 40px; left: 30%;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    /* ── LEFT: PHOTO ── */
+    /* ── HERO FOTO ── */
     .hero-photo {
-      position: relative;
-      z-index: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       gap: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.1s forwards;
     }
 
-    .photo-wrap {
+    .photo-ring {
       position: relative;
       display: inline-block;
     }
 
-    .photo-wrap::before {
+    .photo-ring::before {
       content: '';
       position: absolute;
-      inset: -14px;
+      inset: -16px;
       border-radius: 50%;
-      border: 1.5px dashed var(--rose);
-      opacity: 0.6;
-      animation: spin 28s linear infinite;
+      border: 1.5px dashed rgba(192,122,128,0.45);
+      animation: spin 32s linear infinite;
     }
 
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+      to { transform: rotate(360deg); }
     }
 
     .photo-circle {
-      width: 360px;
-      height: 360px;
+      width: 340px;
+      height: 340px;
       border-radius: 50%;
       object-fit: cover;
       object-position: center top;
@@ -164,40 +205,49 @@
       z-index: 1;
     }
 
-    /* ── RIGHT: TEXT ── */
-    .hero-text {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
+    .photo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--brown-lt);
+      letter-spacing: 0.03em;
     }
 
-    .hero-eyebrow {
+    /* ── HERO TEXTO ── */
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.3s forwards;
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       background: var(--blush);
-      border: 1px solid var(--rose);
+      border: 1px solid rgba(192,122,128,0.35);
       border-radius: 50px;
       padding: 6px 18px;
       font-size: 11px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--rose-dk);
+      color: var(--rose-deep);
       font-weight: 500;
+      width: fit-content;
       margin-bottom: 28px;
     }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(40px, 4.5vw, 64px);
+      font-size: clamp(38px, 4vw, 60px);
       font-weight: 400;
-      line-height: 1.07;
+      line-height: 1.08;
       color: var(--ink);
-      margin-bottom: 20px;
-      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+      letter-spacing: -0.015em;
     }
 
     h1 em {
@@ -205,66 +255,52 @@
       color: var(--rose-dk);
     }
 
-    .hero-description {
-      font-size: 17px;
+    .hero-desc {
+      font-size: 16px;
       color: var(--muted);
-      max-width: 440px;
+      max-width: 430px;
       line-height: 1.85;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
-    /* ── METRICS ── */
-    .hero-metrics {
+    /* cards UFMG / FIAP */
+    .hero-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      width: 100%;
-      margin: 28px 0 32px;
+      margin-bottom: 36px;
     }
 
-    .hero-metric {
+    .hero-card {
       background: var(--white);
       border: 1px solid var(--sand);
-      border-radius: 16px;
-      padding: 16px 18px;
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
       transition: transform var(--transition), box-shadow var(--transition);
     }
 
-    .hero-metric:hover {
+    .hero-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 24px rgba(120,80,70,0.08);
     }
 
-    .hero-metric-num {
+    .hero-card-label {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 500;
       color: var(--rose-dk);
-      line-height: 1.3;
       display: block;
-      margin-bottom: 4px;
-    }
-
-    .hero-metric-label {
-      font-size: 15px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .photo-caption { text-align: center; }
-
-    .photo-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--ink);
-      letter-spacing: 0.02em;
       margin-bottom: 2px;
     }
 
-    /* ── CTA ── */
+    .hero-card-sub {
+      font-size: 12px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* CTAs */
     .hero-cta {
       display: flex;
       gap: 16px;
@@ -275,63 +311,49 @@
     .btn-primary {
       background: var(--ink);
       color: var(--white);
-      padding: 14px 30px;
+      padding: 14px 32px;
       border-radius: 50px;
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-decoration: none;
       transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: inline-block;
     }
 
     .btn-primary:hover {
       background: var(--brown);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(122,96,85,0.28);
+      box-shadow: 0 8px 24px rgba(122,96,85,0.3);
     }
 
-    .btn-secondary {
+    .btn-ghost {
       color: var(--muted);
       font-size: 13px;
       font-weight: 400;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-decoration: none;
       border-bottom: 1px solid var(--sand);
       padding-bottom: 2px;
       transition: color var(--transition), border-color var(--transition);
     }
 
-    .btn-secondary:hover {
-      color: var(--rose-dk);
+    .btn-ghost:hover {
+      color: var(--rose-deep);
       border-color: var(--rose-dk);
     }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .hero-photo        { opacity: 0; animation: fadeUp 0.8s 0.1s forwards; }
-    .hero-eyebrow      { opacity: 0; animation: fadeUp 0.6s 0.25s forwards; }
-    h1                 { opacity: 0; animation: fadeUp 0.6s 0.38s forwards; }
-    .hero-description  { opacity: 0; animation: fadeUp 0.6s 0.50s forwards; }
-    .hero-metrics      { opacity: 0; animation: fadeUp 0.6s 0.62s forwards; }
-    .hero-cta          { opacity: 0; animation: fadeUp 0.6s 0.75s forwards; }
-
-    /* ── SECTION SHARED ── */
+    /* ── SECTIONS ── */
     section {
-      padding: 100px 60px;
+      padding: 96px 80px;
       position: relative;
       overflow: hidden;
-    }
-
-    .deco {
-      position: absolute;
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
-      line-height: 1;
     }
 
     .section-label {
@@ -340,7 +362,7 @@
       text-transform: uppercase;
       color: var(--rose-dk);
       font-weight: 500;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -348,19 +370,27 @@
 
     .section-label::after {
       content: '';
-      flex: 1;
-      max-width: 40px;
+      width: 36px;
       height: 1px;
       background: var(--rose);
+      display: block;
     }
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 4vw, 52px);
+      font-size: clamp(30px, 3.5vw, 48px);
       font-weight: 400;
       line-height: 1.15;
       color: var(--ink);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+    }
+
+    .section-intro {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.85;
+      margin-bottom: 56px;
     }
 
     /* ── SOBRE ── */
@@ -368,116 +398,116 @@
       background: var(--beige);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      gap: 96px;
       align-items: center;
     }
-
-    .sobre-text { max-width: 500px; }
 
     .sobre-text p {
       color: var(--muted);
       font-size: 15px;
-      line-height: 1.9;
-      margin-bottom: 16px;
+      line-height: 1.95;
+      margin-bottom: 18px;
     }
 
-    .sobre-text p strong { color: var(--brown); font-weight: 500; }
+    .sobre-text p:last-child { margin-bottom: 0; }
+
+    .sobre-text strong {
+      color: var(--brown);
+      font-weight: 500;
+    }
 
     .sobre-foto {
       display: flex;
       justify-content: center;
-      align-items: center;
+    }
+
+    .sobre-foto-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .sobre-foto-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--rose) 0%, var(--sand) 100%);
+      z-index: 0;
     }
 
     .sobre-foto img {
       width: 100%;
-      max-width: 460px;
-      border-radius: var(--radius);
+      border-radius: calc(var(--radius) - 2px);
       object-fit: cover;
-      border: 1px solid var(--sand);
-      box-shadow: 0 8px 40px rgba(120,80,70,0.10);
+      display: block;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── EXPERIÊNCIA ── */
     #experiencia { background: var(--cream); }
 
-    .exp-timeline {
-      margin-top: 48px;
-      position: relative;
-      padding-left: 32px;
+    .exp-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 56px;
+      margin-top: 8px;
     }
 
-    .exp-timeline::before {
+    .exp-sidebar {
+      padding-top: 6px;
+      border-right: 1.5px solid var(--sand-lt);
+      padding-right: 40px;
+      position: relative;
+    }
+
+    .exp-sidebar::after {
       content: '';
       position: absolute;
-      left: 0;
-      top: 8px;
-      bottom: 8px;
-      width: 1.5px;
-      background: linear-gradient(180deg, var(--rose), var(--sand));
-    }
-
-    .exp-item {
-      position: relative;
-      margin-bottom: 48px;
-    }
-
-    .exp-item:last-child { margin-bottom: 0; }
-
-    .exp-item::before {
-      content: '';
-      position: absolute;
-      left: -38px;
-      top: 8px;
-      width: 12px;
-      height: 12px;
+      right: -5px;
+      top: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: var(--rose-dk);
-      border: 2.5px solid var(--cream);
+      border: 2px solid var(--cream);
       box-shadow: 0 0 0 2px var(--rose);
     }
 
-    .exp-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-
-    .exp-role {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
-      font-weight: 500;
-      color: var(--ink);
-      line-height: 1.2;
-    }
-
     .exp-period {
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--rose-dk);
       font-weight: 500;
-      white-space: nowrap;
-      margin-top: 6px;
+      line-height: 1.6;
     }
 
     .exp-company {
-      font-size: 14px;
-      color: var(--brown);
+      font-size: 13px;
+      color: var(--muted-lt);
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .exp-body {}
+
+    .exp-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1.2;
       margin-bottom: 16px;
     }
 
     .exp-desc {
       font-size: 15px;
       color: var(--muted);
-      line-height: 1.85;
-      margin-bottom: 16px;
-      max-width: 680px;
+      line-height: 1.9;
+      margin-bottom: 24px;
+      max-width: 620px;
     }
 
     .exp-tags {
@@ -488,13 +518,13 @@
 
     .exp-tag {
       background: var(--blush);
-      color: var(--brown);
+      color: var(--rose-deep);
       font-size: 11px;
       font-weight: 500;
-      padding: 4px 12px;
+      padding: 5px 13px;
       border-radius: 50px;
-      border: 1px solid var(--rose);
-      letter-spacing: 0.04em;
+      border: 1px solid rgba(192,122,128,0.25);
+      letter-spacing: 0.03em;
     }
 
     /* ── SKILLS ── */
@@ -502,227 +532,352 @@
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-top: 48px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    .skill-category {
+    .skill-card {
       background: var(--white);
-      border: 1px solid var(--sand);
+      border: 1px solid rgba(221,208,196,0.7);
       border-radius: var(--radius);
-      padding: 32px 28px;
-      transition: transform var(--transition), box-shadow var(--transition);
+      padding: 28px 24px;
       position: relative;
       overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
     }
 
-    .skill-category::before {
+    .skill-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--rose), var(--sand));
+      height: 2px;
+      background: linear-gradient(90deg, var(--rose-dk), var(--sand));
     }
 
-    .skill-category:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(120,80,70,0.1);
+    .skill-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(120,80,70,0.09);
     }
 
-    .skill-cat-title {
-      font-size: 12px;
+    .skill-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .skill-cat {
+      font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--rose-dk);
       font-weight: 500;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .skill-cat-icon { font-size: 28px; margin-bottom: 14px; display: block; }
-
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
 
     .skill-tag {
       background: var(--blush);
       color: var(--brown);
       font-size: 12px;
-      font-weight: 400;
-      padding: 5px 12px;
+      padding: 4px 11px;
       border-radius: 50px;
-      border: 1px solid var(--rose);
+      border: 1px solid rgba(192,122,128,0.2);
     }
 
-    /* ── PROJETOS ── */
-    #projetos { background: var(--beige); }
+    /* ── PROJETO DESTAQUE ── */
+    #projetos { background: var(--ink); }
 
-    .projetos-skeleton { max-width: 900px; margin-top: 48px; }
+    #projetos .section-label { color: var(--rose); }
+    #projetos .section-label::after { background: rgba(232,180,184,0.4); }
+    #projetos h2 { color: var(--white); }
+    #projetos .section-intro { color: rgba(255,255,255,0.5); }
 
-    .skeleton-cards { display: flex; gap: 24px; align-items: flex-end; }
-
-    .skeleton-card {
-      flex: 1;
-      background: var(--sand);
-      border-radius: var(--radius);
-      position: relative;
-      overflow: hidden;
-      opacity: 0.5;
+    .projeto-destaque {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
     }
 
-    .skeleton-card:nth-child(1) { height: 280px; }
-    .skeleton-card:nth-child(2) { height: 320px; }
-    .skeleton-card:nth-child(3) { height: 280px; }
-
-    .skeleton-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(221,208,196,0.55) 40%, rgba(221,208,196,0.75) 50%, rgba(221,208,196,0.55) 60%, transparent 100%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s ease-in-out infinite;
+    .projeto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,180,184,0.12);
+      border: 1px solid rgba(232,180,184,0.3);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 500;
+      margin-bottom: 24px;
+      width: fit-content;
     }
 
-    @keyframes shimmer {
-      0%   { background-position: -200% 0; }
-      100% { background-position:  200% 0; }
+    .projeto-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 3.5vw, 52px);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
     }
 
-    .skeleton-msg {
-      margin-top: 28px;
+    .projeto-titulo em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .projeto-desc {
       font-size: 15px;
-      color: var(--muted);
-      text-align: center;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.9;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .projeto-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-rose {
+      background: var(--rose-dk);
+      color: var(--white);
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+      display: inline-block;
+    }
+
+    .btn-rose:hover {
+      background: var(--rose-deep);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-light {
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 13px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all var(--transition);
+      display: inline-block;
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.4);
+      color: var(--white);
+    }
+
+    .projeto-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-sm);
+      padding: 20px 20px 18px;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .feature-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(232,180,184,0.25);
+    }
+
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+    }
+
+    .projeto-tech {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      font-size: 11px;
+      color: var(--rose);
+      background: rgba(232,180,184,0.1);
+      border: 1px solid rgba(232,180,184,0.2);
+      padding: 4px 11px;
+      border-radius: 50px;
+      letter-spacing: 0.04em;
     }
 
     /* ── CERTIFICAÇÕES ── */
     #certificacoes { background: var(--cream); }
 
-    .certificacoes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 24px;
-      margin-top: 48px;
-    }
-
-    .certificacao-card {
-      background: var(--white);
-      border: 1px solid var(--sand);
-      border-radius: var(--radius);
-      padding: 32px;
+    .cert-card {
       display: flex;
-      align-items: center;
-      gap: 20px;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-
-    .certificacao-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(120,80,70,0.08);
-    }
-
-    .certificacao-icon { font-size: 48px; flex-shrink: 0; }
-
-    .certificacao-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .certificacao-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
-
-    /* ── LINKEDIN ── */
-    .linkedin-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: flex-start;
       gap: 24px;
-      margin-top: 48px;
-    }
-
-    .linkedin-card {
       background: var(--white);
       border: 1px solid var(--sand);
       border-radius: var(--radius);
-      padding: 32px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
+      padding: 36px;
+      max-width: 640px;
       transition: transform var(--transition), box-shadow var(--transition);
     }
 
-    .linkedin-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 48px rgba(120,80,70,0.12);
+    .cert-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(120,80,70,0.09);
     }
 
-    .linkedin-emoji { font-size: 40px; margin-bottom: 16px; display: block; }
+    .cert-icon { font-size: 48px; flex-shrink: 0; }
 
-    .linkedin-title {
+    .cert-body {}
+
+    .cert-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 500;
       color: var(--ink);
       margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .cert-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── LINKEDIN ── */
+    #linkedin { background: var(--beige); }
+
+    .linkedin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .li-card {
+      background: var(--white);
+      border: 1px solid var(--sand);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .li-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(120,80,70,0.1);
+    }
+
+    .li-emoji {
+      font-size: 36px;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .li-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 12px;
       line-height: 1.3;
     }
 
-    .linkedin-preview {
+    .li-preview {
       font-size: 14px;
       color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 22px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .linkedin-link {
+    .li-link {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose-dk);
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--rose-dk);
     }
 
     /* ── CONTATO ── */
     #contato {
-      background: var(--ink);
-      color: var(--white);
+      background: var(--beige);
       text-align: center;
     }
 
-    #contato .section-label { color: var(--rose); justify-content: center; }
-    #contato .section-label::after { background: var(--rose-dk); }
-    #contato h2 { color: var(--white); }
+    #contato h2 { margin-bottom: 16px; }
 
     .contato-desc {
-      color: rgba(255,255,255,0.65);
-      font-size: 15px;
-      max-width: 480px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 440px;
       margin: 0 auto 48px;
-      line-height: 1.8;
+      line-height: 1.85;
     }
 
     .contato-links {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
     .contato-link {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       padding: 13px 26px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid var(--sand);
       border-radius: 50px;
-      color: rgba(255,255,255,0.85);
+      background: var(--white);
+      color: var(--ink-lt);
       text-decoration: none;
       font-size: 14px;
       font-weight: 400;
@@ -730,68 +885,104 @@
     }
 
     .contato-link:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: var(--rose);
+      background: var(--ink);
+      border-color: var(--ink);
       color: var(--white);
+      transform: translateY(-2px);
     }
+
+    .contato-link svg { flex-shrink: 0; }
 
     /* ── FOOTER ── */
     footer {
       background: var(--ink);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 24px 60px;
+      padding: 24px 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.25);
       font-size: 12px;
+      letter-spacing: 0.04em;
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
+      section { padding: 80px 48px; }
+      nav { padding: 18px 40px; }
+      .hero { padding: 100px 48px 72px; gap: 48px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projeto-destaque { gap: 48px; }
+    }
+
+    @media (max-width: 860px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
 
       .hero {
         grid-template-columns: 1fr;
-        padding: 110px 28px 72px;
+        padding: 96px 24px 64px;
         gap: 40px;
         text-align: center;
+        background-size: 100% 100%, 24px 24px;
       }
 
       .hero-photo { order: -1; }
       .hero-text { align-items: center; }
-      .hero-description { margin-left: auto; margin-right: auto; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
       .photo-circle { width: 240px; height: 240px; }
+      .hero-cta { justify-content: center; }
 
-      .hero-metrics {
-        grid-template-columns: repeat(3, 1fr);
-        margin: 20px auto;
+      #sobre {
+        grid-template-columns: 1fr;
+        gap: 48px;
       }
 
-      .hero-metric { width: auto; }
+      .sobre-foto { order: -1; }
 
-      #sobre { grid-template-columns: 1fr; gap: 48px; }
-      .sobre-foto img { max-width: 100%; }
-      section { padding: 72px 24px; }
-      .exp-timeline { padding-left: 24px; }
-      .exp-item::before { left: -30px; }
-      .exp-header { flex-direction: column; gap: 4px; }
-      .skeleton-cards { flex-direction: column; }
-      .skeleton-card:nth-child(1),
-      .skeleton-card:nth-child(2),
-      .skeleton-card:nth-child(3) { height: 200px; }
-      .certificacoes-grid { grid-template-columns: 1fr; }
+      .exp-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .exp-sidebar {
+        border-right: none;
+        border-bottom: 1.5px solid var(--sand-lt);
+        padding-right: 0;
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .exp-sidebar::after { display: none; }
+
+      .exp-company { margin-top: 0; }
+
+      .skills-grid { grid-template-columns: 1fr; }
+
+      .projeto-destaque {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .projeto-features {
+        grid-template-columns: 1fr 1fr;
+      }
+
       .linkedin-grid { grid-template-columns: 1fr; }
-      .contato-links { flex-direction: column; align-items: center; }
+
+      section { padding: 64px 24px; }
       footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
     }
 
-    @media (max-width: 480px) {
-      .hero { padding: 100px 20px 60px; gap: 32px; }
+    @media (max-width: 520px) {
+      .hero { padding: 88px 20px 56px; }
       .photo-circle { width: 200px; height: 200px; }
-      .hero-metric { width: 100%; }
-      section { padding: 60px 20px; }
+      .hero-cards { grid-template-columns: 1fr 1fr; }
+      .projeto-features { grid-template-columns: 1fr; }
+      section { padding: 56px 20px; }
     }
   </style>
 </head>
@@ -804,26 +995,39 @@
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#experiencia">Experiência</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#certificacoes">Certificações</a></li>
       <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#certificacoes">Certificações</a></li>
       <li><a href="#linkedin">LinkedIn</a></li>
-      <li><a href="#contato">Contato</a></li>
+      <li><a href="#contato" class="nav-cta">Contato</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Menu" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#sobre" onclick="closeMenu()">Sobre</a>
+    <a href="#experiencia" onclick="closeMenu()">Experiência</a>
+    <a href="#skills" onclick="closeMenu()">Skills</a>
+    <a href="#projetos" onclick="closeMenu()">Projetos</a>
+    <a href="#certificacoes" onclick="closeMenu()">Certificações</a>
+    <a href="#linkedin" onclick="closeMenu()">LinkedIn</a>
+    <a href="#contato" onclick="closeMenu()">Contato</a>
+  </div>
+
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" style="padding-top: 120px;">
     <div class="hero-photo">
-      <div class="photo-wrap">
+      <div class="photo-ring">
         <img class="photo-circle" src="assets/fotoIA.png" alt="Lauren Cota" />
       </div>
-      <div class="photo-caption">
-        <p class="photo-name">eei! eu sou a Lau!</p>
-      </div>
+      <p class="photo-name">eei! eu sou a Lau!</p>
     </div>
 
     <div class="hero-text">
-      <p class="hero-eyebrow">Estatística · IA · Dados</p>
+      <p class="eyebrow">Estatística · IA · Dados</p>
 
       <h1>
         Transformando<br>
@@ -831,43 +1035,38 @@
         inteligentes
       </h1>
 
-      <p class="hero-description">
-        Sou formada em Estatística pela Universidade Federal de Minas Gerais e atualmente aprofundo meus estudos em Inteligência Artificial na FIAP. Atuo com soluções em nuvem na Amazon Web Services, desenvolvimento em Python e análise de dados, transformando informações em insights estratégicos.
+      <p class="hero-desc">
+        Formada em Estatística pela UFMG e estudante de Inteligência Artificial na FIAP. Trabalho com AWS, Python e análise de dados há mais de 6 anos, transformando números em respostas que fazem sentido de verdade.
       </p>
 
-      <div class="hero-metrics">
-        <div class="hero-metric">
-          <span class="hero-metric-num">Estatística</span>
-          <span class="hero-metric-label">UFMG</span>
+      <div class="hero-cards">
+        <div class="hero-card">
+          <span class="hero-card-label">Estatística</span>
+          <span class="hero-card-sub">UFMG</span>
         </div>
-        <div class="hero-metric">
-          <span class="hero-metric-num">Inteligência Artificial</span>
-          <span class="hero-metric-label">FIAP</span>
+        <div class="hero-card">
+          <span class="hero-card-label">Inteligência Artificial</span>
+          <span class="hero-card-sub">FIAP</span>
         </div>
       </div>
 
       <div class="hero-cta">
         <a href="#projetos" class="btn-primary">Ver projetos</a>
-        <a href="#contato" class="btn-secondary">Entrar em contato</a>
+        <a href="#contato" class="btn-ghost">Entrar em contato</a>
       </div>
     </div>
   </section>
 
   <!-- SOBRE -->
   <section id="sobre">
-    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--sand);top:6%;left:2%;opacity:0.05;">β</span>
-    <span class="deco" style="font-family:monospace;font-size:14px;color:var(--sand);top:11%;left:76%;opacity:0.08;">df.groupby()</span>
-    <span class="deco" style="font-family:monospace;font-size:13px;color:var(--rose-dk);top:80%;left:4%;opacity:0.07;">import pandas as pd</span>
-    <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:52%;left:80%;opacity:0.07;">SELECT *</span>
-
     <div class="sobre-text">
       <p class="section-label">Sobre mim</p>
       <h2>Quem eu sou</h2>
       <p>
-        Tudo começou pela <strong>matemática</strong> — essa linguagem que sempre me fez enxergar o mundo de outro jeito. Mas foi na tecnologia que me encontrei de verdade, e hoje não consigo imaginar um caminho diferente.
+        Tudo começou pela <strong>matemática</strong>, essa linguagem que sempre me fez enxergar o mundo de outro jeito. Mas foi nos dados que me encontrei de verdade, e hoje não consigo imaginar um caminho diferente.
       </p>
       <p>
-        Trabalho com dados porque acredito que por trás de cada número existe uma decisão, uma história, um impacto. Combino a base estatística que a UFMG me deu com aplicação prática em AWS, SQL e Python — porque teoria sem prática é só abstração.
+        Trabalho com dados porque acredito que por trás de cada número existe uma decisão, uma história, um impacto real. Combino a base estatística que a UFMG me deu com aplicação prática em AWS, SQL e Python, porque teoria sem prática é só abstração.
       </p>
       <p>
         Estou na graduação em IA na FIAP para <strong>colocar em prática tudo que já sei</strong> e ir ainda mais longe. E no meio disso tudo, carrego uma convicção: <strong>quero ver mais mulheres nesse espaço</strong>. A tecnologia é melhor quando é feita por todo mundo.
@@ -875,59 +1074,53 @@
     </div>
 
     <div class="sobre-foto">
-      <img src="assets/fotoportfolio.jfif" alt="Lauren Cota" />
+      <div class="sobre-foto-wrap">
+        <img src="assets/fotoportfolio.jfif" alt="Lauren Cota" />
+      </div>
     </div>
   </section>
 
   <!-- EXPERIÊNCIA -->
   <section id="experiencia">
-    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--sand);top:6%;left:2%;opacity:0.05;">∑</span>
-    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:12%;left:78%;opacity:0.07;">model.deploy()</span>
-    <span class="deco" style="font-family:monospace;font-size:14px;color:var(--brown);top:80%;left:5%;opacity:0.07;">pipeline.run()</span>
-
     <p class="section-label">Trajetória</p>
     <h2>Experiência profissional</h2>
 
-    <div class="exp-timeline">
-
-      <div class="exp-item">
-        <div class="exp-header">
-          <p class="exp-role">Estatística Sênior</p>
-          <span class="exp-period">atual</span>
-        </div>
+    <div class="exp-grid">
+      <div class="exp-sidebar">
+        <p class="exp-period">6+ anos<br>Em andamento</p>
         <p class="exp-company">Brain Brand Strategy</p>
+      </div>
+
+      <div class="exp-body">
+        <p class="exp-role">Estatística Sênior</p>
         <p class="exp-desc">
-Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de ponta a ponta. No dia a dia, integro rigor estatístico a soluções em nuvem, desde a arquitetura de pipelines na AWS até o desenvolvimento de agentes de IA com Bedrock e SageMaker. Meu foco é transformar dados complexos em insights claros que apoiam decisões estratégicas.        </p>
+          Lidero projetos de dados do começo ao fim, da arquitetura de pipelines na AWS ao desenvolvimento de agentes com Bedrock e SageMaker. No dia a dia, transformo dados complexos em respostas claras que sustentam decisões do negócio. Rigor estatístico e aplicação em nuvem lado a lado.
+        </p>
         <div class="exp-tags">
           <span class="exp-tag">AWS</span>
           <span class="exp-tag">SageMaker</span>
           <span class="exp-tag">Bedrock</span>
           <span class="exp-tag">Agentes de IA</span>
           <span class="exp-tag">SQL & RDS</span>
-          <span class="exp-tag">Pipelines</span>
+          <span class="exp-tag">Pipelines de dados</span>
           <span class="exp-tag">Análise Estatística</span>
           <span class="exp-tag">Coordenação de Projetos</span>
           <span class="exp-tag">Excel Avançado</span>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- SKILLS -->
   <section id="skills">
-    <span class="deco" style="font-family:monospace;font-size:20px;color:var(--rose-dk);top:14%;left:2%;opacity:0.08;">.fit()</span>
-    <span class="deco" style="font-family:monospace;font-size:14px;color:var(--brown);top:8%;left:84%;opacity:0.07;">plt.show()</span>
-    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--sand);top:85%;left:3%;opacity:0.07;">GROUP BY</span>
-    <span class="deco" style="font-family:monospace;font-size:15px;color:var(--rose-dk);top:64%;left:1%;opacity:0.08;">predict()</span>
     <p class="section-label">Habilidades</p>
     <h2>Meu stack técnico</h2>
+    <p class="section-intro">As ferramentas que uso no dia a dia para construir, analisar e colocar coisas para funcionar.</p>
 
     <div class="skills-grid">
-
-      <div class="skill-category">
-        <span class="skill-cat-icon">☁️</span>
-        <p class="skill-cat-title">Cloud & AWS</p>
+      <div class="skill-card">
+        <span class="skill-icon">☁️</span>
+        <p class="skill-cat">Cloud & AWS</p>
         <div class="skill-tags">
           <span class="skill-tag">S3</span>
           <span class="skill-tag">Glue</span>
@@ -942,9 +1135,9 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
         </div>
       </div>
 
-      <div class="skill-category">
-        <span class="skill-cat-icon">🗄️</span>
-        <p class="skill-cat-title">Dados & Banco</p>
+      <div class="skill-card">
+        <span class="skill-icon">🗄️</span>
+        <p class="skill-cat">Dados & Banco</p>
         <div class="skill-tags">
           <span class="skill-tag">SQL</span>
           <span class="skill-tag">PostgreSQL</span>
@@ -956,9 +1149,9 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
         </div>
       </div>
 
-      <div class="skill-category">
-        <span class="skill-cat-icon">🐍</span>
-        <p class="skill-cat-title">Linguagens</p>
+      <div class="skill-card">
+        <span class="skill-icon">🐍</span>
+        <p class="skill-cat">Linguagens</p>
         <div class="skill-tags">
           <span class="skill-tag">Python</span>
           <span class="skill-tag">Pandas</span>
@@ -969,9 +1162,9 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
         </div>
       </div>
 
-      <div class="skill-category">
-        <span class="skill-cat-icon">🤖</span>
-        <p class="skill-cat-title">IA & Machine Learning</p>
+      <div class="skill-card">
+        <span class="skill-icon">🤖</span>
+        <p class="skill-cat">IA & Machine Learning</p>
         <div class="skill-tags">
           <span class="skill-tag">Machine Learning</span>
           <span class="skill-tag">Deep Learning</span>
@@ -984,9 +1177,9 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
         </div>
       </div>
 
-      <div class="skill-category">
-        <span class="skill-cat-icon">🔗</span>
-        <p class="skill-cat-title">Frameworks & Orquestração</p>
+      <div class="skill-card">
+        <span class="skill-icon">🔗</span>
+        <p class="skill-cat">Frameworks & Orquestração</p>
         <div class="skill-tags">
           <span class="skill-tag">LangChain</span>
           <span class="skill-tag">LangGraph</span>
@@ -995,9 +1188,9 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
         </div>
       </div>
 
-      <div class="skill-category">
-        <span class="skill-cat-icon">🏗️</span>
-        <p class="skill-cat-title">Arquitetura</p>
+      <div class="skill-card">
+        <span class="skill-icon">🏗️</span>
+        <p class="skill-cat">Arquitetura</p>
         <div class="skill-tags">
           <span class="skill-tag">Data Lake</span>
           <span class="skill-tag">Pipeline</span>
@@ -1005,98 +1198,129 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
           <span class="skill-tag">Arquitetura Cloud</span>
         </div>
       </div>
-
-    </div>
-  </section>
-
-  <!-- CERTIFICAÇÕES -->
-  <section id="certificacoes">
-    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:80px;color:var(--brown);top:8%;left:4%;opacity:0.05;">R²</span>
-    <span class="deco" style="font-family:monospace;font-size:18px;color:var(--sand);top:14%;left:78%;opacity:0.08;">s3://</span>
-    <p class="section-label">Certificações</p>
-    <h2>Minhas conquistas</h2>
-    <div class="certificacoes-grid">
-      <div class="certificacao-card">
-        <div class="certificacao-icon">☁️</div>
-        <div class="certificacao-body">
-          <p class="certificacao-title">AWS Certified Cloud Practitioner</p>
-          <p class="certificacao-desc">
-            Essa certificação da AWS me fez suar, mas agora navego pela nuvem como se fosse minha casa. Valeu cada hora de estudo, mesmo as que pareciam eternas.
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
   <!-- PROJETOS -->
   <section id="projetos">
-    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:90px;color:var(--rose-dk);top:50%;left:3%;opacity:0.05;">χ²</span>
-    <span class="deco" style="font-family:monospace;font-size:17px;color:var(--brown);top:84%;left:75%;opacity:0.07;">p &lt; 0.05</span>
-    <p class="section-label">Projetos</p>
-    <h2>O que já construí</h2>
-    <div class="projetos-skeleton">
-      <div class="skeleton-cards">
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
+    <p class="section-label">Projeto em destaque</p>
+    <h2 style="color: var(--white);">O que estou construindo</h2>
+    <p class="section-intro">Um projeto real, rodando na Copa do Mundo 2026.</p>
+
+    <div class="projeto-destaque">
+      <div class="projeto-info">
+        <p class="projeto-badge">⚽ Copa do Mundo 2026</p>
+        <h3 class="projeto-titulo">Craque<br><em>dos Dados</em></h3>
+        <p class="projeto-desc">
+          Uma plataforma de bolão para a Copa do Mundo 2026 com palpites por jogo, pontuação por acerto e mata-mata com multiplicadores de fase. Cada jogo vale mais à medida que o torneio avança. Suporte a múltiplos bolões simultâneos e resultados baseados apenas nos 90 minutos regulamentares.
+        </p>
+        <div class="projeto-links">
+          <a href="#" class="btn-outline-light">Acessar plataforma</a>
+        </div>
       </div>
-      <p class="skeleton-msg">Projetos chegando em breve.</p>
+
+      <div class="projeto-cards">
+        <div class="projeto-features">
+          <div class="feature-card">
+            <span class="feature-icon">🎯</span>
+            <p class="feature-title">Sistema de palpites</p>
+            <p class="feature-desc">Placar exato, vencedor certo e empate correto com pontuações diferentes para cada acerto.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🏆</span>
+            <p class="feature-title">Mata-mata com multiplicadores</p>
+            <p class="feature-desc">Pontos dobram a cada fase, de ×2 nas oitavas até ×6 na final.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <p class="feature-title">Artilharia em tempo real</p>
+            <p class="feature-desc">Tela de artilharia integrada com API de futebol, atualizada ao vivo.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">👥</span>
+            <p class="feature-title">Múltiplos bolões</p>
+            <p class="feature-desc">Até 20 pessoas por bolão, com ranking e regras no dashboard.</p>
+          </div>
+        </div>
+
+        <div class="projeto-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">API de futebol</span>
+          <span class="tech-tag">Dashboard</span>
+          <span class="tech-tag">Sistema de pontuação</span>
+          <span class="tech-tag">Copa 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICAÇÕES -->
+  <section id="certificacoes">
+    <p class="section-label">Certificações</p>
+    <h2>Minhas conquistas</h2>
+
+    <div class="cert-card">
+      <div class="cert-icon">☁️</div>
+      <div class="cert-body">
+        <p class="cert-title">AWS Certified Cloud Practitioner</p>
+        <p class="cert-desc">
+          Essa certificação me fez suar, mas agora navego pela nuvem como se fosse minha casa. Valeu cada hora de estudo, mesmo as que pareciam eternas.
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- LINKEDIN -->
-  <section id="linkedin" style="background: var(--beige);">
-    <span class="deco" style="font-family:monospace;font-size:16px;color:var(--brown);top:9%;left:2%;opacity:0.07;">y = ax + b</span>
-    <span class="deco" style="font-family:monospace;font-size:19px;color:var(--brown);top:87%;left:7%;opacity:0.08;">H₁</span>
+  <section id="linkedin">
     <p class="section-label">No LinkedIn</p>
     <h2>O que ando pensando</h2>
 
     <div class="linkedin-grid">
-      <a href="https://www.linkedin.com/posts/lauren-cota_voc%C3%AA-j%C3%A1-ouviu-falar-no-paradoxo-de-simpson-activity-7450272634514235392-IMxA" class="linkedin-card" target="_blank">
-        <span class="linkedin-emoji">📊</span>
-        <h3 class="linkedin-title">Paradoxo de Simpson</h3>
-        <p class="linkedin-preview">É o tipo de coisa que faz um resultado "óbvio" virar do avesso.</p>
-        <span class="linkedin-link">Ver post →</span>
+      <a href="https://www.linkedin.com/posts/lauren-cota_você-já-ouviu-falar-no-paradoxo-de-simpson-activity-7450272634514235392-IMxA" class="li-card" target="_blank" rel="noopener">
+        <span class="li-emoji">📊</span>
+        <h3 class="li-title">Paradoxo de Simpson</h3>
+        <p class="li-preview">É o tipo de coisa que faz um resultado "óbvio" virar do avesso.</p>
+        <span class="li-link">Ver post →</span>
       </a>
-      <a href="https://www.linkedin.com/posts/lauren-cota_at%C3%A9-que-ponto-voc%C3%AA-confia-no-que-a-ia-te-activity-7448453478882033664-QA7E" class="linkedin-card" target="_blank">
-        <span class="linkedin-emoji">🤖</span>
-        <h3 class="linkedin-title">Até que ponto você confia na IA?</h3>
-        <p class="linkedin-preview">A IA não vai substituir o rigor técnico, mas está deixando mais visível quem tem e quem não tem. O ganho de velocidade em tarefas mecânicas é indiscutível.</p>
-        <span class="linkedin-link">Ver post →</span>
+
+      <a href="https://www.linkedin.com/posts/lauren-cota_até-que-ponto-você-confia-no-que-a-ia-te-activity-7448453478882033664-QA7E" class="li-card" target="_blank" rel="noopener">
+        <span class="li-emoji">🤖</span>
+        <h3 class="li-title">Até que ponto você confia na IA?</h3>
+        <p class="li-preview">A IA não vai substituir o rigor técnico, mas está deixando mais visível quem tem e quem não tem. O ganho de velocidade em tarefas mecânicas é indiscutível.</p>
+        <span class="li-link">Ver post →</span>
       </a>
-      <a href="https://www.linkedin.com/posts/lauren-cota_o-que-a-faculdade-de-ia-tem-refor%C3%A7ado-para-share-7453066356670832640-TixJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADBB-iIBVkjCWAzlExvHn6em6Qd6j1RlQw8" class="linkedin-card" target="_blank">
-        <span class="linkedin-emoji">🎓</span>
-        <h3 class="linkedin-title">O que a faculdade de IA tem reforçado para mim (e não tem nada a ver com código)</h3>
-        <p class="linkedin-preview">Entrei achando que ia aprender mais um monte de algoritmo novo. E sim, tem isso. Mas a principal lição até agora tem sido outra: segurar a mão antes de sair codando.</p>
-        <span class="linkedin-link">Ver post →</span>
+
+      <a href="https://www.linkedin.com/posts/lauren-cota_o-que-a-faculdade-de-ia-tem-reforçado-para-share-7453066356670832640-TixJ" class="li-card" target="_blank" rel="noopener">
+        <span class="li-emoji">🎓</span>
+        <h3 class="li-title">O que a faculdade de IA reforçou pra mim</h3>
+        <p class="li-preview">Entrei achando que ia aprender mais algoritmos novos. A principal lição até agora foi outra: segurar a mão antes de sair codando.</p>
+        <span class="li-link">Ver post →</span>
       </a>
     </div>
   </section>
 
   <!-- CONTATO -->
   <section id="contato">
-    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:70px;color:var(--sand);top:10%;left:4%;opacity:0.08;">θ</span>
-    <span class="deco" style="font-family:'Cormorant Garamond',serif;font-size:60px;color:var(--rose-dk);top:62%;left:87%;opacity:0.08;">μ</span>
-    <p class="section-label">Contato</p>
+    <p class="section-label" style="justify-content: center;">Contato</p>
     <h2>Vamos conversar?</h2>
     <p class="contato-desc">
-      Vamos bater um papo sobre dados? Estou sempre aberta a projetos interessantes e colaborações que façam sentido.
+      Estou sempre aberta a projetos que façam sentido e colaborações que valham o tempo das duas partes.
     </p>
     <div class="contato-links">
       <a href="mailto:laurenmcota@gmail.com" class="contato-link">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
         laurenmcota@gmail.com
       </a>
-      <a href="https://wa.me/5531985851534" class="contato-link" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+      <a href="https://wa.me/5531985851534" class="contato-link" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
         WhatsApp
       </a>
-      <a href="https://linkedin.com/in/lauren-cota" class="contato-link" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <a href="https://linkedin.com/in/lauren-cota" class="contato-link" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         LinkedIn
       </a>
-      <a href="https://github.com/Laurencota" class="contato-link" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      <a href="https://github.com/Laurencota" class="contato-link" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         GitHub
       </a>
     </div>
@@ -1106,6 +1330,22 @@ Atuo há mais de 6 anos na área de dados, liderando projetos analíticos de pon
     <span>© 2026 Lauren Cota</span>
     <span>Feito com ♥ e dados</span>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileMenu');
+      const ham = document.querySelector('.nav-hamburger');
+      if (!menu.contains(e.target) && !ham.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
 
 </body>
 </html>
